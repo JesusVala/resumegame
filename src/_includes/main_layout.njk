@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/{{ cssFile }}" />
+    <link rel="stylesheet" href="./css/{{ cssFile }}" />
+    
     <title>Jesus Valadez</title>
 </head>
 <body>
     {{content | safe}}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/99/three.min.js"></script>
+    <script src="./js/{{ jsFile }}" ></script>
 </body>
 </html>
