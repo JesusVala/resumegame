@@ -1,4 +1,10 @@
-export function Player(playerSize, zoom) {
+/**
+ * Generates a TREE.GROUP to act as a character player
+ * @param {number} playerSize
+ * @param {number} zoom
+ * @returns
+ */
+export function Player(zoom, playerSize) {
   const player = new THREE.Group();
 
   const body = new THREE.Mesh(

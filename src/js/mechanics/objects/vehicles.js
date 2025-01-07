@@ -1,3 +1,4 @@
+const vechicleColors = [0xa52523, 0xbdb638, 0x78b14b];
 const carFrontTexture = new Texture(40, 80, [{ x: 0, y: 10, w: 30, h: 60 }]);
 const carBackTexture = new Texture(40, 80, [{ x: 10, y: 10, w: 30, h: 60 }]);
 const carRightSideTexture = new Texture(110, 40, [
@@ -25,10 +26,9 @@ const truckLeftSideTexture = new Texture(25, 30, [{
 /**
  * Generates a TREE.GROUP similar a Car
  * @param {number} zoom
- * @param {number[]} vechicleColors
  * @returns {THREE.Group}
  */
-export function Car(zoom, vechicleColors) {
+export function Car(zoom) {
   const car = new THREE.Group();
   const color =
     vechicleColors[Math.floor(Math.random() * vechicleColors.length)];
@@ -92,10 +92,9 @@ export function Car(zoom, vechicleColors) {
 /**
  * Generates a TREE.GROUP similar a Truck
  * @param {number} zoom
- * @param {number[]} vechicleColors
  * @returns {THREE.Group}
  */
-export function Truck(zoom, vechicleColors) {
+export function Truck(zoom) {
   const truck = new THREE.Group();
   const color =
     vechicleColors[Math.floor(Math.random() * vechicleColors.length)];

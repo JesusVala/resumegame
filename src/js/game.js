@@ -5,6 +5,7 @@
 
 import { Player } from "./mechanics/objects/player.js";
 import { Car, Truck } from "./mechanics/objects/vehicles.js";
+import { Three, Grass, Road } from "./mechanics/objects/enviroment.js"
 
 //Counter of points to make
 const counterDOM = document.getElementById("counter");
@@ -91,7 +92,7 @@ const addLane = () => {
 };
 
 //Creation of player
-const player = new Player(playerSize, zoom);
+const player = new Player(zoom, playerSize);
 scene.add(player);
 
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
@@ -124,8 +125,8 @@ scene.add(backLight);
 
 const laneTypes = ["car", "truck", "forest"];
 const laneSpeeds = [2, 2.5, 3];
-const vechicleColors = [0xa52523, 0xbdb638, 0x78b14b];
-const threeHeights = [20, 45, 60];
+//const vechicleColors = [0xa52523, 0xbdb638, 0x78b14b];
+//const threeHeights = [20, 45, 60];
 
 const initaliseValues = () => {
   lanes = generateLanes();
@@ -190,7 +191,7 @@ function Player() {
 
   return player;
 }*/
-
+/*
 function Grass() {
   const grass = new THREE.Group();
 
@@ -243,6 +244,7 @@ function Road() {
 
   return road;
 }
+  */
 
 /*
 function Truck() {
@@ -299,7 +301,7 @@ function Truck() {
   return truck;
 }
   */
-
+/*
 function Three() {
   const three = new THREE.Group();
 
@@ -325,6 +327,7 @@ function Three() {
 
   return three;
 }
+  */
 
 /*
 function Car() {
@@ -414,15 +417,15 @@ function Lane(index) {
   switch (this.type) {
     case "field": {
       this.type = "field";
-      this.mesh = new Grass();
+      this.mesh = new Grass(zoom, boardWidth, positionWidth);
       break;
     }
     case "forest": {
-      this.mesh = new Grass();
+      this.mesh = new Grass(zoom, boardWidth, positionWidth);
 
       this.occupiedPositions = new Set();
       this.threes = [1, 2, 3, 4].map(() => {
-        const three = new Three();
+        const three = new Three(zoom);
         let position;
         do {
           position = Math.floor(Math.random() * columns);
@@ -437,12 +440,12 @@ function Lane(index) {
       break;
     }
     case "car": {
-      this.mesh = new Road();
+      this.mesh = new Road(zoom, boardWidth, positionWidth);
       this.direction = Math.random() >= 0.5;
 
       const occupiedPositions = new Set();
       this.vechicles = [1, 2, 3].map(() => {
-        const vechicle = new Car(zoom, vechicleColors);
+        const vechicle = new Car(zoom);
         let position;
         do {
           position = Math.floor(Math.random() * columns / 2);
@@ -460,12 +463,12 @@ function Lane(index) {
       break;
     }
     case "truck": {
-      this.mesh = new Road();
+      this.mesh = new Road(zoom, boardWidth, positionWidth);
       this.direction = Math.random() >= 0.5;
 
       const occupiedPositions = new Set();
       this.vechicles = [1, 2].map(() => {
-        const vechicle = new Truck(zoom, vechicleColors);
+        const vechicle = new Truck(zoom);
         let position;
         do {
           position = Math.floor(Math.random() * columns / 3);
