@@ -1,18 +1,18 @@
+import { ZOOM, POSITION_WIDTH, BOARD_WIDTH } from "../../constants.js";
 const threeHeights = [20, 45, 60];
 
 /**
- * Generates a Three object in a random height
- * @param {number} zoom 
+ * Generates a Three object in a random height 
  * @returns THREE.Group
  */
-export function Three(zoom) {
+export function Three() {
   const three = new THREE.Group();
 
   const trunk = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(15 * zoom, 15 * zoom, 20 * zoom),
+    new THREE.BoxBufferGeometry(15 * ZOOM, 15 * ZOOM, 20 * ZOOM),
     new THREE.MeshPhongMaterial({ color: 0x4d2926, flatShading: true }),
   );
-  trunk.position.z = 10 * zoom;
+  trunk.position.z = 10 * ZOOM;
   trunk.castShadow = true;
   trunk.receiveShadow = true;
   three.add(trunk);
@@ -20,10 +20,10 @@ export function Three(zoom) {
   const height = threeHeights[Math.floor(Math.random() * threeHeights.length)];
 
   const crown = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(30 * zoom, 30 * zoom, height * zoom),
+    new THREE.BoxBufferGeometry(30 * ZOOM, 30 * ZOOM, height * ZOOM),
     new THREE.MeshLambertMaterial({ color: 0x7aa21d, flatShading: true }),
   );
-  crown.position.z = (height / 2 + 20) * zoom;
+  crown.position.z = (height / 2 + 20) * ZOOM;
   crown.castShadow = true;
   crown.receiveShadow = false;
   three.add(crown);
@@ -33,20 +33,17 @@ export function Three(zoom) {
 
 /**
  * Generates a tile of grass to put in the floor
- * @param {number} zoom 
- * @param {number} boardWidth 
- * @param {number} positionWidth 
  * @returns THREE.Group
  */
-export function Grass(zoom, boardWidth, positionWidth) {
+export function Grass() {
   const grass = new THREE.Group();
 
   const createSection = (color) =>
     new THREE.Mesh(
       new THREE.BoxBufferGeometry(
-        boardWidth * zoom,
-        positionWidth * zoom,
-        3 * zoom,
+        BOARD_WIDTH * ZOOM,
+        POSITION_WIDTH * ZOOM,
+        3 * ZOOM,
       ),
       new THREE.MeshPhongMaterial({ color }),
     );
@@ -56,30 +53,27 @@ export function Grass(zoom, boardWidth, positionWidth) {
   grass.add(middle);
 
   const left = createSection(0x99C846);
-  left.position.x = -boardWidth * zoom;
+  left.position.x = -BOARD_WIDTH * ZOOM;
   grass.add(left);
 
   const right = createSection(0x99C846);
-  right.position.x = boardWidth * zoom;
+  right.position.x = BOARD_WIDTH * ZOOM;
   grass.add(right);
 
-  grass.position.z = 1.5 * zoom;
+  grass.position.z = 1.5 * ZOOM;
   return grass;
 }
 
 /**
  * Generates a tile of grass to put in the floor
- * @param {number} zoom 
- * @param {number} boardWidth 
- * @param {number} positionWidth 
  * @returns 
  */
-export function Road(zoom, boardWidth, positionWidth) {
+export function Road() {
   const road = new THREE.Group();
 
   const createSection = (color) =>
     new THREE.Mesh(
-      new THREE.PlaneBufferGeometry(boardWidth * zoom, positionWidth * zoom),
+      new THREE.PlaneBufferGeometry(BOARD_WIDTH * ZOOM, POSITION_WIDTH * ZOOM),
       new THREE.MeshPhongMaterial({ color }),
     );
 
@@ -88,11 +82,11 @@ export function Road(zoom, boardWidth, positionWidth) {
   road.add(middle);
 
   const left = createSection(0x393D49);
-  left.position.x = -boardWidth * zoom;
+  left.position.x = -BOARD_WIDTH * ZOOM;
   road.add(left);
 
   const right = createSection(0x393D49);
-  right.position.x = boardWidth * zoom;
+  right.position.x = BOARD_WIDTH * ZOOM;
   road.add(right);
 
   return road;

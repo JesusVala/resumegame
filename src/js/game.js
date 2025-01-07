@@ -3,13 +3,18 @@
  *  Makes a scene to work with the game
  */
 
+import {
+  BOARD_WIDTH,
+  COLUMNS,
+  DISTANCE,
+  INITIAL,
+  PLAYER_SIZE,
+  POSITION_WIDTH,
+  STEP_TIME,
+  ZOOM,
+} from "./constants.js";
+import { addLane, generateLanes } from "./mechanics/behavior/mapCreator.js";
 import { Player } from "./mechanics/objects/player.js";
-import { Car, Truck } from "./mechanics/objects/vehicles.js";
-import { Three, Grass, Road } from "./mechanics/objects/enviroment.js"
-
-// let helper = new THREE.CameraHelper( dirLight.shadow.camera );
-// let helper = new THREE.CameraHelper( camera );
-// scene.add(helper)
 
 //Counter of points to make
 const counterDOM = document.getElementById("counter");
@@ -18,7 +23,6 @@ const endDOM = document.getElementById("end");
 
 const scene = new THREE.Scene();
 
-const distance = 500; //Distance of the camera
 const camera = new THREE.OrthographicCamera(
   globalThis.innerWidth / -2,
   globalThis.innerWidth / 2,
@@ -29,30 +33,14 @@ const camera = new THREE.OrthographicCamera(
 ); // Size of the camera vision
 
 //Inclination fo camera
-camera.rotation.x = 50 * Math.PI / 180;
-camera.rotation.y = 20 * Math.PI / 180;
-camera.rotation.z = 10 * Math.PI / 180;
+camera.rotation.x = INITIAL.CAMERA.ROTATION.X;
+camera.rotation.y = INITIAL.CAMERA.ROTATION.Y;
+camera.rotation.z = INITIAL.CAMERA.ROTATION.Z;
 
 //Initial potition of camera
-const initialCameraPositionY = -Math.tan(camera.rotation.x) * distance;
-const initialCameraPositionX = Math.tan(camera.rotation.y) *
-  Math.sqrt(distance ** 2 + initialCameraPositionY ** 2);
-camera.position.y = initialCameraPositionY;
-camera.position.x = initialCameraPositionX;
-camera.position.z = distance;
-
-//Camera zoom
-const zoom = 2;
-
-//Player size
-const playerSize = 15;
-
-//Sizes of map
-const positionWidth = 42;
-const columns = 17;
-const boardWidth = positionWidth * columns;
-
-const stepTime = 200; // Miliseconds it takes for the player to take a step forward, backward, left or right
+camera.position.y = INITIAL.CAMERA.POSITION.Y;
+camera.position.x = INITIAL.CAMERA.POSITION.X;
+camera.position.z = DISTANCE;
 
 //Player location variables
 let lanes;
@@ -65,37 +53,19 @@ let startMoving;
 let moves;
 let stepStartTimestamp;
 
-//Map dimensions generator
-const generateLanes = () =>
-  [-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(
-    (index) => {
-      const lane = new Lane(index);
-      lane.mesh.position.y = index * positionWidth * zoom;
-      scene.add(lane.mesh);
-      return lane;
-    },
-  ).filter((lane) => lane.index >= 0);
-
-//Lane generator
-const addLane = () => {
-  const index = lanes.length;
-  const lane = new Lane(index);
-  lane.mesh.position.y = index * positionWidth * zoom;
-  scene.add(lane.mesh);
-  lanes.push(lane);
-};
-
 //Creation of player
-const player = new Player(zoom, playerSize);
+const player = new Player();
 scene.add(player);
 
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
 scene.add(hemiLight);
 
-const initialDirLightPositionX = -100;
-const initialDirLightPositionY = -100;
 const dirLight = new THREE.DirectionalLight(0xffffff, 0.6);
-dirLight.position.set(initialDirLightPositionX, initialDirLightPositionY, 200);
+dirLight.position.set(
+  INITIAL.DIR_LIGHT.POSITION.X,
+  INITIAL.DIR_LIGHT.POSITION.Y,
+  200,
+);
 dirLight.castShadow = true;
 dirLight.target = player;
 scene.add(dirLight);
@@ -113,15 +83,11 @@ backLight.position.set(200, 200, 50);
 backLight.castShadow = true;
 scene.add(backLight);
 
-const laneTypes = ["car", "truck", "forest"];
-const laneSpeeds = [2, 2.5, 3];
-
-
 const initaliseValues = () => {
-  lanes = generateLanes();
+  lanes = generateLanes(scene);
 
   currentLane = 0;
-  currentColumn = Math.floor(columns / 2);
+  currentColumn = Math.floor(COLUMNS / 2);
 
   previousTimestamp = null;
 
@@ -132,11 +98,11 @@ const initaliseValues = () => {
   player.position.x = 0;
   player.position.y = 0;
 
-  camera.position.y = initialCameraPositionY;
-  camera.position.x = initialCameraPositionX;
+  camera.position.y = INITIAL.CAMERA.POSITION.Y;
+  camera.position.x = INITIAL.CAMERA.POSITION.X;
 
-  dirLight.position.x = initialDirLightPositionX;
-  dirLight.position.y = initialDirLightPositionY;
+  dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X;
+  dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y;
 };
 
 initaliseValues();
@@ -149,93 +115,6 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.setSize(globalThis.innerWidth, globalThis.innerHeight);
 document.body.appendChild(renderer.domElement);
-
-
-/**
- * ---------------------------------------
- * ----     Generator functions       ----
- * ---------------------------------------
- */
-
-function Lane(index) {
-  this.index = index;
-  this.type = index <= 0
-    ? "field"
-    : laneTypes[Math.floor(Math.random() * laneTypes.length)];
-
-  switch (this.type) {
-    case "field": {
-      this.type = "field";
-      this.mesh = new Grass(zoom, boardWidth, positionWidth);
-      break;
-    }
-    case "forest": {
-      this.mesh = new Grass(zoom, boardWidth, positionWidth);
-
-      this.occupiedPositions = new Set();
-      this.threes = [1, 2, 3, 4].map(() => {
-        const three = new Three(zoom);
-        let position;
-        do {
-          position = Math.floor(Math.random() * columns);
-        } while (this.occupiedPositions.has(position));
-        this.occupiedPositions.add(position);
-        three.position.x =
-          (position * positionWidth + positionWidth / 2) * zoom -
-          boardWidth * zoom / 2;
-        this.mesh.add(three);
-        return three;
-      });
-      break;
-    }
-    case "car": {
-      this.mesh = new Road(zoom, boardWidth, positionWidth);
-      this.direction = Math.random() >= 0.5;
-
-      const occupiedPositions = new Set();
-      this.vechicles = [1, 2, 3].map(() => {
-        const vechicle = new Car(zoom);
-        let position;
-        do {
-          position = Math.floor(Math.random() * columns / 2);
-        } while (occupiedPositions.has(position));
-        occupiedPositions.add(position);
-        vechicle.position.x =
-          (position * positionWidth * 2 + positionWidth / 2) * zoom -
-          boardWidth * zoom / 2;
-        if (!this.direction) vechicle.rotation.z = Math.PI;
-        this.mesh.add(vechicle);
-        return vechicle;
-      });
-
-      this.speed = laneSpeeds[Math.floor(Math.random() * laneSpeeds.length)];
-      break;
-    }
-    case "truck": {
-      this.mesh = new Road(zoom, boardWidth, positionWidth);
-      this.direction = Math.random() >= 0.5;
-
-      const occupiedPositions = new Set();
-      this.vechicles = [1, 2].map(() => {
-        const vechicle = new Truck(zoom);
-        let position;
-        do {
-          position = Math.floor(Math.random() * columns / 3);
-        } while (occupiedPositions.has(position));
-        occupiedPositions.add(position);
-        vechicle.position.x =
-          (position * positionWidth * 3 + positionWidth / 2) * zoom -
-          boardWidth * zoom / 2;
-        if (!this.direction) vechicle.rotation.z = Math.PI;
-        this.mesh.add(vechicle);
-        return vechicle;
-      });
-
-      this.speed = laneSpeeds[Math.floor(Math.random() * laneSpeeds.length)];
-      break;
-    }
-  }
-}
 
 /**
  * ---------------------------------------
@@ -268,7 +147,7 @@ function move(direction) {
       )
     ) return;
     if (!stepStartTimestamp) startMoving = true;
-    addLane();
+    addLane(scene, lanes);
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
@@ -288,7 +167,7 @@ function move(direction) {
     ) return;
     if (!stepStartTimestamp) startMoving = true;
   } else if (direction === "right") {
-    if (finalPositions.column === columns - 1) return;
+    if (finalPositions.column === COLUMNS - 1) return;
     if (
       lanes[finalPositions.lane].type === "forest" &&
       lanes[finalPositions.lane].occupiedPositions.has(
@@ -346,10 +225,10 @@ function animate(timestamp) {
   // Animate cars and trucks moving on the lane
   lanes.forEach((lane) => {
     if (lane.type === "car" || lane.type === "truck") {
-      const aBitBeforeTheBeginingOfLane = -boardWidth * zoom / 2 -
-        positionWidth * 2 * zoom;
-      const aBitAfterTheEndOFLane = boardWidth * zoom / 2 +
-        positionWidth * 2 * zoom;
+      const aBitBeforeTheBeginingOfLane = -BOARD_WIDTH * ZOOM / 2 -
+        POSITION_WIDTH * 2 * ZOOM;
+      const aBitAfterTheEndOFLane = BOARD_WIDTH * ZOOM / 2 +
+        POSITION_WIDTH * 2 * ZOOM;
       lane.vechicles.forEach((vechicle) => {
         if (lane.direction) {
           vechicle.position.x =
@@ -372,26 +251,26 @@ function animate(timestamp) {
 
   if (stepStartTimestamp) {
     const moveDeltaTime = timestamp - stepStartTimestamp;
-    const moveDeltaDistance = Math.min(moveDeltaTime / stepTime, 1) *
-      positionWidth * zoom;
+    const moveDeltaDistance = Math.min(moveDeltaTime / STEP_TIME, 1) *
+      POSITION_WIDTH * ZOOM;
     const jumpDeltaDistance =
-      Math.sin(Math.min(moveDeltaTime / stepTime, 1) * Math.PI) * 8 * zoom;
+      Math.sin(Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI) * 8 * ZOOM;
     switch (moves[0]) {
       case "forward": {
-        const positionY = currentLane * positionWidth * zoom +
+        const positionY = currentLane * POSITION_WIDTH * ZOOM +
           moveDeltaDistance;
-        camera.position.y = initialCameraPositionY + positionY;
-        dirLight.position.y = initialDirLightPositionY + positionY;
+        camera.position.y = INITIAL.CAMERA.POSITION.Y + positionY;
+        dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y + positionY;
         player.position.y = positionY; // initial player position is 0
 
         player.position.z = jumpDeltaDistance;
         break;
       }
       case "backward": {
-        const positionY = currentLane * positionWidth * zoom -
+        const positionY = currentLane * POSITION_WIDTH * ZOOM -
           moveDeltaDistance;
-        camera.position.y = initialCameraPositionY + positionY;
-        dirLight.position.y = initialDirLightPositionY + positionY;
+        camera.position.y = INITIAL.CAMERA.POSITION.Y + positionY;
+        dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y + positionY;
         player.position.y = positionY;
 
         player.position.z = jumpDeltaDistance;
@@ -399,20 +278,20 @@ function animate(timestamp) {
       }
       case "left": {
         const positionX =
-          (currentColumn * positionWidth + positionWidth / 2) * zoom -
-          boardWidth * zoom / 2 - moveDeltaDistance;
-        camera.position.x = initialCameraPositionX + positionX;
-        dirLight.position.x = initialDirLightPositionX + positionX;
+          (currentColumn * POSITION_WIDTH + POSITION_WIDTH / 2) * ZOOM -
+          BOARD_WIDTH * ZOOM / 2 - moveDeltaDistance;
+        camera.position.x = INITIAL.CAMERA.POSITION.X + positionX;
+        dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X + positionX;
         player.position.x = positionX; // initial player position is 0
         player.position.z = jumpDeltaDistance;
         break;
       }
       case "right": {
         const positionX =
-          (currentColumn * positionWidth + positionWidth / 2) * zoom -
-          boardWidth * zoom / 2 + moveDeltaDistance;
-        camera.position.x = initialCameraPositionX + positionX;
-        dirLight.position.x = initialDirLightPositionX + positionX;
+          (currentColumn * POSITION_WIDTH + POSITION_WIDTH / 2) * ZOOM -
+          BOARD_WIDTH * ZOOM / 2 + moveDeltaDistance;
+        camera.position.x = INITIAL.CAMERA.POSITION.X + positionX;
+        dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X + positionX;
         player.position.x = positionX;
 
         player.position.z = jumpDeltaDistance;
@@ -420,7 +299,7 @@ function animate(timestamp) {
       }
     }
     // Once a step has ended
-    if (moveDeltaTime > stepTime) {
+    if (moveDeltaTime > STEP_TIME) {
       switch (moves[0]) {
         case "forward": {
           currentLane++;
@@ -451,12 +330,12 @@ function animate(timestamp) {
   if (
     lanes[currentLane].type === "car" || lanes[currentLane].type === "truck"
   ) {
-    const playerMinX = player.position.x - playerSize * zoom / 2;
-    const playerMaxX = player.position.x + playerSize * zoom / 2;
+    const playerMinX = player.position.x - PLAYER_SIZE * ZOOM / 2;
+    const playerMaxX = player.position.x + PLAYER_SIZE * ZOOM / 2;
     const vechicleLength = { car: 60, truck: 105 }[lanes[currentLane].type];
     lanes[currentLane].vechicles.forEach((vechicle) => {
-      const carMinX = vechicle.position.x - vechicleLength * zoom / 2;
-      const carMaxX = vechicle.position.x + vechicleLength * zoom / 2;
+      const carMinX = vechicle.position.x - vechicleLength * ZOOM / 2;
+      const carMaxX = vechicle.position.x + vechicleLength * ZOOM / 2;
       if (playerMaxX > carMinX && playerMinX < carMaxX) {
         endDOM.style.visibility = "visible";
       }

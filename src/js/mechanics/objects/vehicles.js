@@ -1,3 +1,5 @@
+import { ZOOM } from "../../constants.js";
+
 const vechicleColors = [0xa52523, 0xbdb638, 0x78b14b];
 const carFrontTexture = new Texture(40, 80, [{ x: 0, y: 10, w: 30, h: 60 }]);
 const carBackTexture = new Texture(40, 80, [{ x: 10, y: 10, w: 30, h: 60 }]);
@@ -25,25 +27,24 @@ const truckLeftSideTexture = new Texture(25, 30, [{
 
 /**
  * Generates a TREE.GROUP similar a Car
- * @param {number} zoom
  * @returns {THREE.Group}
  */
-export function Car(zoom) {
+export function Car() {
   const car = new THREE.Group();
   const color =
     vechicleColors[Math.floor(Math.random() * vechicleColors.length)];
 
   const main = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(60 * zoom, 30 * zoom, 15 * zoom),
+    new THREE.BoxBufferGeometry(60 * ZOOM, 30 * ZOOM, 15 * ZOOM),
     new THREE.MeshPhongMaterial({ color, flatShading: true }),
   );
-  main.position.z = 12 * zoom;
+  main.position.z = 12 * ZOOM;
   main.castShadow = true;
   main.receiveShadow = true;
   car.add(main);
 
   const cabin = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(33 * zoom, 24 * zoom, 12 * zoom),
+    new THREE.BoxBufferGeometry(33 * ZOOM, 24 * ZOOM, 12 * ZOOM),
     [
       new THREE.MeshPhongMaterial({
         color: 0xcccccc,
@@ -69,18 +70,18 @@ export function Car(zoom) {
       new THREE.MeshPhongMaterial({ color: 0xcccccc, flatShading: true }), // bottom
     ],
   );
-  cabin.position.x = 6 * zoom;
-  cabin.position.z = 25.5 * zoom;
+  cabin.position.x = 6 * ZOOM;
+  cabin.position.z = 25.5 * ZOOM;
   cabin.castShadow = true;
   cabin.receiveShadow = true;
   car.add(cabin);
 
-  const frontWheel = new Wheel(zoom);
-  frontWheel.position.x = -18 * zoom;
+  const frontWheel = new Wheel();
+  frontWheel.position.x = -18 * ZOOM;
   car.add(frontWheel);
 
-  const backWheel = new Wheel(zoom);
-  backWheel.position.x = 18 * zoom;
+  const backWheel = new Wheel();
+  backWheel.position.x = 18 * ZOOM;
   car.add(backWheel);
 
   car.castShadow = true;
@@ -91,33 +92,32 @@ export function Car(zoom) {
 
 /**
  * Generates a TREE.GROUP similar a Truck
- * @param {number} zoom
  * @returns {THREE.Group}
  */
-export function Truck(zoom) {
+export function Truck() {
   const truck = new THREE.Group();
   const color =
     vechicleColors[Math.floor(Math.random() * vechicleColors.length)];
 
   const base = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(100 * zoom, 25 * zoom, 5 * zoom),
+    new THREE.BoxBufferGeometry(100 * ZOOM, 25 * ZOOM, 5 * ZOOM),
     new THREE.MeshLambertMaterial({ color: 0xb4c6fc, flatShading: true }),
   );
-  base.position.z = 10 * zoom;
+  base.position.z = 10 * ZOOM;
   truck.add(base);
 
   const cargo = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(75 * zoom, 35 * zoom, 40 * zoom),
+    new THREE.BoxBufferGeometry(75 * ZOOM, 35 * ZOOM, 40 * ZOOM),
     new THREE.MeshPhongMaterial({ color: 0xb4c6fc, flatShading: true }),
   );
-  cargo.position.x = 15 * zoom;
-  cargo.position.z = 30 * zoom;
+  cargo.position.x = 15 * ZOOM;
+  cargo.position.z = 30 * ZOOM;
   cargo.castShadow = true;
   cargo.receiveShadow = true;
   truck.add(cargo);
 
   const cabin = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(25 * zoom, 30 * zoom, 30 * zoom),
+    new THREE.BoxBufferGeometry(25 * ZOOM, 30 * ZOOM, 30 * ZOOM),
     [
       new THREE.MeshPhongMaterial({ color, flatShading: true }), // back
       new THREE.MeshPhongMaterial({
@@ -139,22 +139,22 @@ export function Truck(zoom) {
       new THREE.MeshPhongMaterial({ color, flatShading: true }), // bottom
     ],
   );
-  cabin.position.x = -40 * zoom;
-  cabin.position.z = 20 * zoom;
+  cabin.position.x = -40 * ZOOM;
+  cabin.position.z = 20 * ZOOM;
   cabin.castShadow = true;
   cabin.receiveShadow = true;
   truck.add(cabin);
 
-  const frontWheel = new Wheel(zoom);
-  frontWheel.position.x = -38 * zoom;
+  const frontWheel = new Wheel();
+  frontWheel.position.x = -38 * ZOOM;
   truck.add(frontWheel);
 
-  const middleWheel = new Wheel(zoom);
-  middleWheel.position.x = -10 * zoom;
+  const middleWheel = new Wheel();
+  middleWheel.position.x = -10 * ZOOM;
   truck.add(middleWheel);
 
-  const backWheel = new Wheel(zoom);
-  backWheel.position.x = 30 * zoom;
+  const backWheel = new Wheel();
+  backWheel.position.x = 30 * ZOOM;
   truck.add(backWheel);
 
   return truck;
@@ -162,15 +162,14 @@ export function Truck(zoom) {
 
 /**
  * Creates a THREE.Mesh similar as a wheel, ready to use as a subgroup of a vehicle
- * @param {number} zoom
  * @returns {THREE.Mesh}
  */
-export function Wheel(zoom) {
+export function Wheel() {
   const wheel = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(12 * zoom, 33 * zoom, 12 * zoom),
+    new THREE.BoxBufferGeometry(12 * ZOOM, 33 * ZOOM, 12 * ZOOM),
     new THREE.MeshLambertMaterial({ color: 0x333333, flatShading: true }),
   );
-  wheel.position.z = 6 * zoom;
+  wheel.position.z = 6 * ZOOM;
   return wheel;
 }
 
