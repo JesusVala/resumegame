@@ -13,7 +13,7 @@ import {
   STEP_TIME,
   ZOOM,
 } from "./constants.js";
-import { generateLanes } from "./mechanics/behavior/mapCreator.js";
+import { generateLanes, addLane } from "./mechanics/behavior/mapCreator.js";
 import { Player } from "./mechanics/objects/player.js";
 
 //Counter of points to make
@@ -148,7 +148,7 @@ function move(direction) {
       )
     ) return;
     if (!stepStartTimestamp) startMoving = true;
-    //addLane(scene, lanes);
+    addLane(scene, lanes);
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
