@@ -72,11 +72,10 @@ scene.add(dirLight);
 
 dirLight.shadow.mapSize.width = 2048;
 dirLight.shadow.mapSize.height = 2048;
-const d = 500;
-dirLight.shadow.camera.left = -d;
-dirLight.shadow.camera.right = d;
-dirLight.shadow.camera.top = d;
-dirLight.shadow.camera.bottom = -d;
+dirLight.shadow.camera.left = INITIAL.DIR_LIGHT.SHADOW.CAMERA.LEFT;
+dirLight.shadow.camera.right = INITIAL.DIR_LIGHT.SHADOW.CAMERA.RIGHT;
+dirLight.shadow.camera.top = INITIAL.DIR_LIGHT.SHADOW.CAMERA.TOP;
+dirLight.shadow.camera.bottom = INITIAL.DIR_LIGHT.SHADOW.CAMERA.BOTTON;
 
 const backLight = new THREE.DirectionalLight(0x000000, .4);
 backLight.position.set(200, 200, 50);
@@ -124,6 +123,8 @@ document.body.appendChild(renderer.domElement);
 
 //Player movement
 function move(direction) {
+  if (moves.length >= 2) return;
+
   const finalPositions = moves.reduce((position, move) => {
     if (move === "forward") {
       return { lane: position.lane + 1, column: position.column };

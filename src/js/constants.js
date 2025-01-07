@@ -10,6 +10,7 @@ export const DISTANCE = 500;
 
 export const INITIAL_DIR_LIGHT_POSITION_X = -100;
 export const INITIAL_DIR_LIGHT_POSITION_Y = -100;
+export const INITIAL_DIR_LIGHT_SHADOW_BASE = 500;
 
 export const INITIAL_CAMERA_ROTATION_X = 50 * Math.PI / 180;
 export const INITIAL_CAMERA_ROTATION_Y = 20 * Math.PI / 180;
@@ -20,12 +21,21 @@ export const INITIAL_CAMERA_POSITION_Y = -Math.tan(INITIAL_CAMERA_ROTATION_X) *
 export const INITIAL_CAMERA_POSITION_X = Math.tan(INITIAL_CAMERA_ROTATION_Y) *
   Math.sqrt(DISTANCE ** 2 + INITIAL_CAMERA_POSITION_Y ** 2);
 
+
 export const INITIAL = Object.freeze({
   DIR_LIGHT: {
     POSITION: {
       X: INITIAL_DIR_LIGHT_POSITION_X,
       Y: INITIAL_DIR_LIGHT_POSITION_Y,
     },
+    SHADOW: {
+        CAMERA: {
+            LEFT: -INITIAL_DIR_LIGHT_SHADOW_BASE,
+            RIGHT: INITIAL_DIR_LIGHT_SHADOW_BASE,
+            TOP: INITIAL_DIR_LIGHT_SHADOW_BASE,
+            BOTTON: -INITIAL_DIR_LIGHT_SHADOW_BASE
+        }
+    }
   },
   CAMERA: {
     ROTATION: {
