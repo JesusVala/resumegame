@@ -52,13 +52,16 @@ export function Grass() {
   middle.receiveShadow = true;
   grass.add(middle);
 
+  /*
   const left = createSection(0x99C846);
   left.position.x = -BOARD_WIDTH * ZOOM;
   grass.add(left);
+  
 
   const right = createSection(0x99C846);
   right.position.x = BOARD_WIDTH * ZOOM;
   grass.add(right);
+  */
 
   grass.position.z = 1.5 * ZOOM;
   return grass;

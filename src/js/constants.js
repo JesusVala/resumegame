@@ -8,6 +8,10 @@ export const STEP_TIME = 200; // Miliseconds it takes for the player to take a s
 export const ZOOM = 2;
 export const DISTANCE = 500;
 
+// Colors
+export const BACKGROUND_COLOR = new THREE.Color().setHex(0x87ceeb);
+
+//Lights
 export const INITIAL_DIR_LIGHT_POSITION_X = -100;
 export const INITIAL_DIR_LIGHT_POSITION_Y = -100;
 export const INITIAL_DIR_LIGHT_SHADOW_BASE = 500;
@@ -21,7 +25,6 @@ export const INITIAL_CAMERA_POSITION_Y = -Math.tan(INITIAL_CAMERA_ROTATION_X) *
 export const INITIAL_CAMERA_POSITION_X = Math.tan(INITIAL_CAMERA_ROTATION_Y) *
   Math.sqrt(DISTANCE ** 2 + INITIAL_CAMERA_POSITION_Y ** 2);
 
-
 export const INITIAL = Object.freeze({
   DIR_LIGHT: {
     POSITION: {
@@ -29,13 +32,13 @@ export const INITIAL = Object.freeze({
       Y: INITIAL_DIR_LIGHT_POSITION_Y,
     },
     SHADOW: {
-        CAMERA: {
-            LEFT: -INITIAL_DIR_LIGHT_SHADOW_BASE,
-            RIGHT: INITIAL_DIR_LIGHT_SHADOW_BASE,
-            TOP: INITIAL_DIR_LIGHT_SHADOW_BASE,
-            BOTTON: -INITIAL_DIR_LIGHT_SHADOW_BASE
-        }
-    }
+      CAMERA: {
+        LEFT: -INITIAL_DIR_LIGHT_SHADOW_BASE,
+        RIGHT: INITIAL_DIR_LIGHT_SHADOW_BASE,
+        TOP: INITIAL_DIR_LIGHT_SHADOW_BASE,
+        BOTTON: -INITIAL_DIR_LIGHT_SHADOW_BASE,
+      },
+    },
   },
   CAMERA: {
     ROTATION: {

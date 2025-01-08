@@ -4,6 +4,7 @@
  */
 
 import {
+  BACKGROUND_COLOR,
   BOARD_WIDTH,
   COLUMNS,
   DISTANCE,
@@ -13,7 +14,7 @@ import {
   STEP_TIME,
   ZOOM,
 } from "./constants.js";
-import { generateLanes, addLane } from "./mechanics/behavior/mapCreator.js";
+import { addLane, generateLanes } from "./mechanics/behavior/mapCreator.js";
 import { Player } from "./mechanics/objects/player.js";
 
 //Counter of points to make
@@ -22,6 +23,7 @@ const counterDOM = document.getElementById("counter");
 const endDOM = document.getElementById("end");
 
 const scene = new THREE.Scene();
+scene.background = BACKGROUND_COLOR;
 
 const camera = new THREE.OrthographicCamera(
   globalThis.innerWidth / -2,
@@ -48,10 +50,11 @@ let currentLane;
 let currentColumn;
 
 //Timestamps variables
+let stepStartTimestamp;
 let previousTimestamp;
 let startMoving;
 let moves;
-let stepStartTimestamp;
+let pointDirection;
 
 //Creation of player
 const player = new Player();
@@ -93,6 +96,7 @@ const initaliseValues = () => {
   startMoving = false;
   moves = [];
   stepStartTimestamp;
+  pointDirection = 'forward'
 
   player.position.x = 0;
   player.position.y = 0;
@@ -263,8 +267,20 @@ function animate(timestamp) {
         camera.position.y = INITIAL.CAMERA.POSITION.Y + positionY;
         dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y + positionY;
         player.position.y = positionY; // initial player position is 0
-
         player.position.z = jumpDeltaDistance;
+
+        switch (pointDirection) {
+          case 'forward':      
+            break;
+          case 'left':
+            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
+            break;
+        
+          default:
+            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
+            break;
+        }
+
         break;
       }
       case "backward": {
@@ -275,6 +291,18 @@ function animate(timestamp) {
         player.position.y = positionY;
 
         player.position.z = jumpDeltaDistance;
+
+        switch (pointDirection) {
+          case 'backward':
+            break;
+          case 'left':
+            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
+            break;
+        
+          default:
+            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
+            break;
+        }
         break;
       }
       case "left": {
@@ -285,6 +313,17 @@ function animate(timestamp) {
         dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X + positionX;
         player.position.x = positionX; // initial player position is 0
         player.position.z = jumpDeltaDistance;
+
+        switch (pointDirection) {
+          case 'left':
+            break;
+          case 'forward':
+            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
+            break;
+          default:
+            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
+            break;
+        }
         break;
       }
       case "right": {
@@ -294,8 +333,18 @@ function animate(timestamp) {
         camera.position.x = INITIAL.CAMERA.POSITION.X + positionX;
         dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X + positionX;
         player.position.x = positionX;
-
         player.position.z = jumpDeltaDistance;
+
+        switch (pointDirection) {
+          case 'right':
+            break;
+          case 'forward':
+            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
+            break;
+          default:
+            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
+            break;
+        }
         break;
       }
     }
@@ -305,19 +354,23 @@ function animate(timestamp) {
         case "forward": {
           currentLane++;
           counterDOM.innerHTML = currentLane;
+          pointDirection = 'forward'
           break;
         }
         case "backward": {
           currentLane--;
           counterDOM.innerHTML = currentLane;
+          pointDirection = 'backward'
           break;
         }
         case "left": {
           currentColumn--;
+          pointDirection = 'left'
           break;
         }
         case "right": {
           currentColumn++;
+          pointDirection = 'right'
           break;
         }
       }
