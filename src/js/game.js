@@ -14,7 +14,7 @@ import {
   STEP_TIME,
   ZOOM,
 } from "./constants.js";
-import { addLane, generateLanes } from "./mechanics/behavior/mapCreator.js";
+import { generateLanes } from "./mechanics/behavior/mapCreator.js";
 import { Player } from "./mechanics/objects/player.js";
 
 //Counter of points to make
@@ -57,7 +57,7 @@ let moves;
 let pointDirection;
 
 //Creation of player
-const player = new Player();
+const player = new Player("fox");
 scene.add(player);
 
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
@@ -96,7 +96,7 @@ const initaliseValues = () => {
   startMoving = false;
   moves = [];
   stepStartTimestamp;
-  pointDirection = 'forward'
+  pointDirection = "forward";
 
   player.position.x = 0;
   player.position.y = 0;
@@ -152,7 +152,7 @@ function move(direction) {
       )
     ) return;
     if (!stepStartTimestamp) startMoving = true;
-    addLane(scene, lanes);
+    //addLane(scene, lanes);
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
@@ -269,15 +269,21 @@ function animate(timestamp) {
         player.position.y = positionY; // initial player position is 0
         player.position.z = jumpDeltaDistance;
 
+        //Rotations goal to 0
         switch (pointDirection) {
-          case 'forward':      
+          case "left":
+            player.rotation.z = -(Math.min(moveDeltaTime / STEP_TIME, 1) - 1) *
+              Math.PI / 2;
             break;
-          case 'left':
-            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
+          case "right":
+            player.rotation.z = (Math.min(moveDeltaTime / STEP_TIME, 1) - 1) *
+              Math.PI / 2;
             break;
-        
+          case "backward":
+            player.rotation.z = (Math.min(moveDeltaTime / STEP_TIME, 1) - 1) *
+              Math.PI;
+            break;
           default:
-            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
             break;
         }
 
@@ -289,20 +295,28 @@ function animate(timestamp) {
         camera.position.y = INITIAL.CAMERA.POSITION.Y + positionY;
         dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y + positionY;
         player.position.y = positionY;
-
         player.position.z = jumpDeltaDistance;
 
+        //Rotations goal to PI
         switch (pointDirection) {
-          case 'backward':
+          case "forward":
+            player.rotation.z = -((Math.min(moveDeltaTime / STEP_TIME, 1)) *
+              Math.PI);
             break;
-          case 'left':
-            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
+          case "left":
+            player.rotation.z =
+              (Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI / 2) +
+              Math.PI / 2;
             break;
-        
+          case "right":
+            player.rotation.z =
+              -((Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI / 2) +
+                Math.PI / 2);
+            break;
           default:
-            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI;
             break;
         }
+
         break;
       }
       case "left": {
@@ -314,16 +328,24 @@ function animate(timestamp) {
         player.position.x = positionX; // initial player position is 0
         player.position.z = jumpDeltaDistance;
 
+        //Rotations goal to PI/2
         switch (pointDirection) {
-          case 'left':
+          case "forward":
+            player.rotation.z = (Math.min(moveDeltaTime / STEP_TIME, 1)) *
+              Math.PI / 2;
             break;
-          case 'forward':
-            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
+          case "backward":
+            player.rotation.z = -((Math.min(moveDeltaTime / STEP_TIME, 1) *
+              Math.PI / 2) - Math.PI) ;
+            break;
+          case "right":
+            player.rotation.z = -((Math.min(moveDeltaTime / STEP_TIME, 1) *
+            Math.PI) + Math.PI/2) ;
             break;
           default:
-            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
             break;
         }
+
         break;
       }
       case "right": {
@@ -335,16 +357,24 @@ function animate(timestamp) {
         player.position.x = positionX;
         player.position.z = jumpDeltaDistance;
 
+        //Rotations goal to -PI/2
         switch (pointDirection) {
-          case 'right':
+          case "forward":
+            player.rotation.z = -((Math.min(moveDeltaTime / STEP_TIME, 1)) *
+              Math.PI / 2);
             break;
-          case 'forward':
-            player.rotation.z = -Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
+          case "backward":
+            player.rotation.z = ((Math.min(moveDeltaTime / STEP_TIME, 1) *
+              Math.PI / 2) - Math.PI) ;
+            break;
+          case "left":
+            player.rotation.z = ((Math.min(moveDeltaTime / STEP_TIME, 1) *
+            Math.PI) + Math.PI/2) ;
             break;
           default:
-            player.rotation.z = Math.min(moveDeltaTime / STEP_TIME, 1) * Math.PI/2;
             break;
         }
+
         break;
       }
     }
@@ -354,23 +384,23 @@ function animate(timestamp) {
         case "forward": {
           currentLane++;
           counterDOM.innerHTML = currentLane;
-          pointDirection = 'forward'
+          pointDirection = "forward";
           break;
         }
         case "backward": {
           currentLane--;
           counterDOM.innerHTML = currentLane;
-          pointDirection = 'backward'
+          pointDirection = "backward";
           break;
         }
         case "left": {
           currentColumn--;
-          pointDirection = 'left'
+          pointDirection = "left";
           break;
         }
         case "right": {
           currentColumn++;
-          pointDirection = 'right'
+          pointDirection = "right";
           break;
         }
       }
