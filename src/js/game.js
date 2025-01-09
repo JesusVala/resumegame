@@ -100,6 +100,7 @@ const initaliseValues = () => {
 
   player.position.x = 0;
   player.position.y = 0;
+  player.rotation.z = 0;
 
   camera.position.y = INITIAL.CAMERA.POSITION.Y;
   camera.position.x = INITIAL.CAMERA.POSITION.X;
