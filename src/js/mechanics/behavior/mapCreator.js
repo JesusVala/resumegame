@@ -1,8 +1,27 @@
-import { POSITION_WIDTH, ZOOM,LANE_TYPES, LANE_SPEEDS, COLUMNS, BOARD_WIDTH  } from "../../constants.js";
+import {
+  BOARD_WIDTH,
+  COLUMNS,
+  LANE_SPEEDS,
+  LANE_TYPES,
+  POSITION_WIDTH,
+  ZOOM,
+} from "../../constants.js";
 import { Grass, Road, Three } from "../objects/enviroment.js";
-import { Truck, Car } from "../objects/vehicles.js";
+import { Car, Truck } from "../objects/vehicles.js";
 
-export const initaliseValues = (scene, _lanes, _currentLane, _currentColumn, _previousTimestamp, _startMoving, _moves, stepStartTimestamp, player, camera, dirLight) => {
+export const initaliseValues = (
+  scene,
+  _lanes,
+  _currentLane,
+  _currentColumn,
+  _previousTimestamp,
+  _startMoving,
+  _moves,
+  stepStartTimestamp,
+  player,
+  camera,
+  dirLight,
+) => {
   lanes = generateLanes(scene);
 
   currentLane = 0;

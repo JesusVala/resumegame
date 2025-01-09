@@ -14,7 +14,7 @@ import {
   STEP_TIME,
   ZOOM,
 } from "./constants.js";
-import { generateLanes } from "./mechanics/behavior/mapCreator.js";
+import { addLane, generateLanes } from "./mechanics/behavior/mapCreator.js";
 import { Player } from "./mechanics/objects/player.js";
 
 //Counter of points to make
@@ -153,7 +153,7 @@ function move(direction) {
       )
     ) return;
     if (!stepStartTimestamp) startMoving = true;
-    //addLane(scene, lanes);
+    addLane(scene, lanes);
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
@@ -337,11 +337,11 @@ function animate(timestamp) {
             break;
           case "backward":
             player.rotation.z = -((Math.min(moveDeltaTime / STEP_TIME, 1) *
-              Math.PI / 2) - Math.PI) ;
+              Math.PI / 2) - Math.PI);
             break;
           case "right":
             player.rotation.z = -((Math.min(moveDeltaTime / STEP_TIME, 1) *
-            Math.PI) + Math.PI/2) ;
+              Math.PI) + Math.PI / 2);
             break;
           default:
             break;
@@ -365,12 +365,12 @@ function animate(timestamp) {
               Math.PI / 2);
             break;
           case "backward":
-            player.rotation.z = ((Math.min(moveDeltaTime / STEP_TIME, 1) *
-              Math.PI / 2) - Math.PI) ;
+            player.rotation.z = (Math.min(moveDeltaTime / STEP_TIME, 1) *
+              Math.PI / 2) - Math.PI;
             break;
           case "left":
-            player.rotation.z = ((Math.min(moveDeltaTime / STEP_TIME, 1) *
-            Math.PI) + Math.PI/2) ;
+            player.rotation.z = (Math.min(moveDeltaTime / STEP_TIME, 1) *
+              Math.PI) + Math.PI / 2;
             break;
           default:
             break;

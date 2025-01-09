@@ -1,8 +1,8 @@
-import { ZOOM, POSITION_WIDTH, BOARD_WIDTH } from "../../constants.js";
+import { BOARD_WIDTH, POSITION_WIDTH, ZOOM } from "../../constants.js";
 const threeHeights = [20, 45, 60];
 
 /**
- * Generates a Three object in a random height 
+ * Generates a Three object in a random height
  * @returns THREE.Group
  */
 export function Three() {
@@ -52,16 +52,13 @@ export function Grass() {
   middle.receiveShadow = true;
   grass.add(middle);
 
-  /*
   const left = createSection(0x99C846);
   left.position.x = -BOARD_WIDTH * ZOOM;
   grass.add(left);
-  
 
   const right = createSection(0x99C846);
   right.position.x = BOARD_WIDTH * ZOOM;
   grass.add(right);
-  */
 
   grass.position.z = 1.5 * ZOOM;
   return grass;
@@ -69,7 +66,7 @@ export function Grass() {
 
 /**
  * Generates a tile of grass to put in the floor
- * @returns 
+ * @returns
  */
 export function Road() {
   const road = new THREE.Group();

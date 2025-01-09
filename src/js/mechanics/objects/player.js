@@ -83,7 +83,10 @@ function cowPlayer() {
       side: THREE.DoubleSide,
       map: TEXTURES.COW.BACK,
     }), //back
-    new THREE.MeshBasicMaterial({ side: THREE.DoubleSide ,map: TEXTURES.COW.TOP}), //top
+    new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      map: TEXTURES.COW.TOP,
+    }), //top
     new THREE.MeshBasicMaterial({ color: 0xf01223, side: THREE.DoubleSide }), //botom
   ];
 
@@ -103,64 +106,82 @@ function cowPlayer() {
 
   const nose = new THREE.Mesh(
     new THREE.BoxBufferGeometry(6 * ZOOM, 3 * ZOOM, 4 * ZOOM),
-    new THREE.MeshLambertMaterial({ color: COLORS.COW.PINK, flatShading: true }),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.COW.PINK,
+      flatShading: true,
+    }),
   );
-  nose.position.z = ((PLAYER_SIZE/2)) * ZOOM;
-  nose.position.y = (PLAYER_SIZE/2) * ZOOM;
+  nose.position.z = (PLAYER_SIZE / 2) * ZOOM;
+  nose.position.y = (PLAYER_SIZE / 2) * ZOOM;
   nose.castShadow = true;
   nose.receiveShadow = false;
   player.add(nose);
 
   const leftHorn = new THREE.Mesh(
     new THREE.BoxBufferGeometry(2 * ZOOM, 2 * ZOOM, 2 * ZOOM),
-    new THREE.MeshLambertMaterial({ color: COLORS.COW.BLACK, flatShading: true }),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.COW.BLACK,
+      flatShading: true,
+    }),
   );
-  leftHorn.position.z = (PLAYER_SIZE+1.5) * ZOOM;
-  leftHorn.position.y = (PLAYER_SIZE/3.5) * ZOOM;
-  leftHorn.position.x = (PLAYER_SIZE/3.3) * ZOOM;
+  leftHorn.position.z = (PLAYER_SIZE + 1.5) * ZOOM;
+  leftHorn.position.y = (PLAYER_SIZE / 3.5) * ZOOM;
+  leftHorn.position.x = (PLAYER_SIZE / 3.3) * ZOOM;
   leftHorn.castShadow = true;
   leftHorn.receiveShadow = false;
   player.add(leftHorn);
 
   const rightHorn = new THREE.Mesh(
     new THREE.BoxBufferGeometry(2 * ZOOM, 2 * ZOOM, 2 * ZOOM),
-    new THREE.MeshLambertMaterial({ color: COLORS.COW.BLACK, flatShading: true }),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.COW.BLACK,
+      flatShading: true,
+    }),
   );
-  rightHorn.position.z = (PLAYER_SIZE+1.5) * ZOOM;
-  rightHorn.position.y = (PLAYER_SIZE/3.5) * ZOOM;
-  rightHorn.position.x = -(PLAYER_SIZE/3.3) * ZOOM;
+  rightHorn.position.z = (PLAYER_SIZE + 1.5) * ZOOM;
+  rightHorn.position.y = (PLAYER_SIZE / 3.5) * ZOOM;
+  rightHorn.position.x = -(PLAYER_SIZE / 3.3) * ZOOM;
   rightHorn.castShadow = true;
   rightHorn.receiveShadow = false;
   player.add(rightHorn);
 
   const leftEar = new THREE.Mesh(
     new THREE.BoxBufferGeometry(2 * ZOOM, 2 * ZOOM, 2 * ZOOM),
-    new THREE.MeshLambertMaterial({ color: COLORS.COW.BASE, flatShading: true }),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.COW.BASE,
+      flatShading: true,
+    }),
   );
-  leftEar.position.z = (PLAYER_SIZE-2) * ZOOM;
-  leftEar.position.y = (PLAYER_SIZE/3.5) * ZOOM;
-  leftEar.position.x = -(PLAYER_SIZE/1.8) * ZOOM;
+  leftEar.position.z = (PLAYER_SIZE - 2) * ZOOM;
+  leftEar.position.y = (PLAYER_SIZE / 3.5) * ZOOM;
+  leftEar.position.x = -(PLAYER_SIZE / 1.8) * ZOOM;
   leftEar.castShadow = true;
   leftEar.receiveShadow = false;
   player.add(leftEar);
 
   const rightEar = new THREE.Mesh(
     new THREE.BoxBufferGeometry(2 * ZOOM, 2 * ZOOM, 2 * ZOOM),
-    new THREE.MeshLambertMaterial({ color: COLORS.COW.BASE, flatShading: true }),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.COW.BASE,
+      flatShading: true,
+    }),
   );
-  rightEar.position.z = (PLAYER_SIZE-2) * ZOOM;
-  rightEar.position.y = (PLAYER_SIZE/3.5) * ZOOM;
-  rightEar.position.x = (PLAYER_SIZE/1.8) * ZOOM;
+  rightEar.position.z = (PLAYER_SIZE - 2) * ZOOM;
+  rightEar.position.y = (PLAYER_SIZE / 3.5) * ZOOM;
+  rightEar.position.x = (PLAYER_SIZE / 1.8) * ZOOM;
   rightEar.castShadow = true;
   rightEar.receiveShadow = false;
   player.add(rightEar);
 
   const tail = new THREE.Mesh(
     new THREE.BoxBufferGeometry(2 * ZOOM, 2 * ZOOM, 4 * ZOOM),
-    new THREE.MeshLambertMaterial({ color: COLORS.COW.BLACK, flatShading: true }),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.COW.BLACK,
+      flatShading: true,
+    }),
   );
-  tail.position.z = (PLAYER_SIZE/3) * ZOOM;
-  tail.position.y = -(PLAYER_SIZE/1.8) * ZOOM;
+  tail.position.z = (PLAYER_SIZE / 3) * ZOOM;
+  tail.position.y = -(PLAYER_SIZE / 1.8) * ZOOM;
   tail.castShadow = true;
   tail.receiveShadow = false;
   player.add(tail);
