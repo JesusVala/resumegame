@@ -57,8 +57,10 @@ export const PLAYER_SIZE = 15;
 
 //Sizes of map
 export const POSITION_WIDTH = 42;
-export const COLUMNS = 17;
+export const COLUMNS = 3;
+export const LANES = 3;
 export const BOARD_WIDTH = POSITION_WIDTH * COLUMNS;
+export const TILE_SIZE = 42;
 
 //Lane
 export const LANE_TYPES = ["car", "truck", "forest"];

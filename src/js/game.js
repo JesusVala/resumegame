@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 /**
  * Description:
  *  Makes a scene to work with the game
@@ -6,7 +7,6 @@
 import {
   BACKGROUND_COLOR,
   BOARD_WIDTH,
-  COLUMNS,
   DISTANCE,
   INITIAL,
   PLAYER_SIZE,
@@ -14,7 +14,12 @@ import {
   STEP_TIME,
   ZOOM,
 } from "./constants.js";
-import { addLane, generateLanes } from "./mechanics/behavior/mapCreator.js";
+import {
+  addLane,
+  generateLanes,
+  generateMap,
+} from "./mechanics/behavior/mapCreator.js";
+import { INTROMAP } from "./mechanics/maps/intro_map.js";
 import { Player } from "./mechanics/objects/player.js";
 
 //Counter of points to make
@@ -22,6 +27,8 @@ const counterDOM = document.getElementById("counter");
 //Game over dialog
 const endDOM = document.getElementById("end");
 
+const LANES = INTROMAP[0].length;
+const COLUMNS = INTROMAP.length;
 const scene = new THREE.Scene();
 scene.background = BACKGROUND_COLOR;
 
@@ -57,7 +64,7 @@ let moves;
 let pointDirection;
 
 //Creation of player
-const player = new Player("fox");
+const player = new Player("cow");
 scene.add(player);
 
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
@@ -86,10 +93,12 @@ backLight.castShadow = true;
 scene.add(backLight);
 
 const initaliseValues = () => {
-  lanes = generateLanes(scene);
+  //lanes = generateLanes(scene);
+  lanes = generateMap(scene);
 
   currentLane = 0;
-  currentColumn = Math.floor(COLUMNS / 2);
+  currentColumn = 1;
+  //currentColumn = Math.floor(COLUMNS / 2);
 
   previousTimestamp = null;
 
@@ -146,39 +155,36 @@ function move(direction) {
   }, { lane: currentLane, column: currentColumn });
 
   if (direction === "forward") {
+    if (finalPositions.lane === LANES - 1) return;
     if (
-      lanes[finalPositions.lane + 1].type === "forest" &&
-      lanes[finalPositions.lane + 1].occupiedPositions.has(
-        finalPositions.column,
-      )
+      false
+      //lanes[finalPositions.lane + 1].type === "forest"
+      //lanes[finalPositions.lane + 1].occupiedPositions.has(finalPositions.column,)
     ) return;
     if (!stepStartTimestamp) startMoving = true;
-    addLane(scene, lanes);
+    //addLane(scene, lanes);
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
-      lanes[finalPositions.lane - 1].type === "forest" &&
-      lanes[finalPositions.lane - 1].occupiedPositions.has(
-        finalPositions.column,
-      )
+      false
+      //lanes[finalPositions.lane - 1].type === "forest"
+      //lanes[finalPositions.lane - 1].occupiedPositions.has(finalPositions.column,)
     ) return;
     if (!stepStartTimestamp) startMoving = true;
   } else if (direction === "left") {
     if (finalPositions.column === 0) return;
     if (
-      lanes[finalPositions.lane].type === "forest" &&
-      lanes[finalPositions.lane].occupiedPositions.has(
-        finalPositions.column - 1,
-      )
+      false
+      //lanes[finalPositions.lane].type === "forest"
+      //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column - 1,)
     ) return;
     if (!stepStartTimestamp) startMoving = true;
   } else if (direction === "right") {
     if (finalPositions.column === COLUMNS - 1) return;
     if (
-      lanes[finalPositions.lane].type === "forest" &&
-      lanes[finalPositions.lane].occupiedPositions.has(
-        finalPositions.column + 1,
-      )
+      false
+      //lanes[finalPositions.lane].type === "forest"
+      //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column + 1,)
     ) return;
     if (!stepStartTimestamp) startMoving = true;
   }
@@ -229,6 +235,7 @@ function animate(timestamp) {
   previousTimestamp = timestamp;
 
   // Animate cars and trucks moving on the lane
+  /*
   lanes.forEach((lane) => {
     if (lane.type === "car" || lane.type === "truck") {
       const aBitBeforeTheBeginingOfLane = -BOARD_WIDTH * ZOOM / 2 -
@@ -249,6 +256,7 @@ function animate(timestamp) {
       });
     }
   });
+  */
 
   if (startMoving) {
     stepStartTimestamp = timestamp;
@@ -412,6 +420,7 @@ function animate(timestamp) {
   }
 
   // Hit test
+  /*
   if (
     lanes[currentLane].type === "car" || lanes[currentLane].type === "truck"
   ) {
@@ -426,6 +435,7 @@ function animate(timestamp) {
       }
     });
   }
+    */
   renderer.render(scene, camera);
 }
 

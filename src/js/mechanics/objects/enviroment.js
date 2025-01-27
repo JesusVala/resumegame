@@ -1,4 +1,4 @@
-import { BOARD_WIDTH, POSITION_WIDTH, ZOOM } from "../../constants.js";
+import { BOARD_WIDTH, POSITION_WIDTH, TILE_SIZE, ZOOM } from "../../constants.js";
 const threeHeights = [20, 45, 60];
 
 /**
@@ -43,7 +43,7 @@ export function Grass() {
       new THREE.BoxBufferGeometry(
         BOARD_WIDTH * ZOOM,
         POSITION_WIDTH * ZOOM,
-        3 * ZOOM,
+        //3 * ZOOM,
       ),
       new THREE.MeshPhongMaterial({ color }),
     );
@@ -59,6 +59,48 @@ export function Grass() {
   const right = createSection(0x99C846);
   right.position.x = BOARD_WIDTH * ZOOM;
   grass.add(right);
+
+  grass.position.z = 1.5 * ZOOM;
+  return grass;
+}
+
+export function GrassTile() {
+  const grass = new THREE.Group();
+
+  const createSection = (color) =>
+    new THREE.Mesh(
+      new THREE.BoxBufferGeometry(
+        TILE_SIZE * ZOOM,
+        POSITION_WIDTH * ZOOM,
+        //3 * ZOOM,
+      ),
+      new THREE.MeshPhongMaterial({ color }),
+    );
+
+  const tile = createSection(0xbaf455);
+  tile.receiveShadow = true;
+  grass.add(tile);
+
+  grass.position.z = 1.5 * ZOOM;
+  return grass;
+}
+
+export function RoadTile() {
+  const grass = new THREE.Group();
+
+  const createSection = (color) =>
+    new THREE.Mesh(
+      new THREE.BoxBufferGeometry(
+        TILE_SIZE * ZOOM,
+        POSITION_WIDTH * ZOOM,
+        //3 * ZOOM,
+      ),
+      new THREE.MeshPhongMaterial({ color }),
+    );
+
+  const tile = createSection(0x454A59);
+  tile.receiveShadow = true;
+  grass.add(tile);
 
   grass.position.z = 1.5 * ZOOM;
   return grass;

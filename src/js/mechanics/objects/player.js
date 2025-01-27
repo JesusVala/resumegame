@@ -56,13 +56,17 @@ const TEXTURES = Object.freeze({
  */
 export function Player(playerModelName) {
   switch (playerModelName) {
-    case "fox":
+    case "cow":
       return cowPlayer();
     default:
       return originalChickenPlayer();
   }
 }
 
+/**
+ * Creates a Cow player
+ * @returns {THREE.Group}
+ */
 function cowPlayer() {
   const player = new THREE.Group();
 
@@ -244,14 +248,6 @@ export function CanvasTexture(width, height, rects) {
     context.fillStyle = rect.color;
     context.fillRect(rect.x, rect.y, rect.w, rect.h);
   });
-  /*
-  context.fillStyle = "#ffffff";
-  context.fillRect(0, 0, width, height);
-  context.fillStyle = "rgba(0,0,0,0.6)";
-  rects.forEach((rect) => {
-    context.fillRect(rect.x, rect.y, rect.w, rect.h);
-  });
-  */
-  console.log(canvas);
+
   return new THREE.CanvasTexture(canvas);
 }

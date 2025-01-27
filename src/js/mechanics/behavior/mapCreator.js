@@ -6,8 +6,46 @@ import {
   POSITION_WIDTH,
   ZOOM,
 } from "../../constants.js";
-import { Grass, Road, Three } from "../objects/enviroment.js";
+import { Grass, GrassTile, RoadTile, Road, Three } from "../objects/enviroment.js";
 import { Car, Truck } from "../objects/vehicles.js";
+import { INTROMAP, TILE_TYPE } from "../maps/intro_map.js";
+
+export function generateMap(scene) {
+  for (let x = 0; x < INTROMAP.length; x++) {
+    for (let y = 0; y < INTROMAP[x].length; y++) {
+      //generateTile(INTROMAP, x, y);
+      const tile = new Tile(INTROMAP[x][y], x, y);
+      //tile.mesh.position.x = x * ZOOM;
+      tile.mesh.position.x = (x * POSITION_WIDTH * ZOOM) -
+        (POSITION_WIDTH * ZOOM);
+      tile.mesh.position.y = y * POSITION_WIDTH * ZOOM;
+      scene.add(tile.mesh);
+      //lane.mesh.position.y = index * POSITION_WIDTH * ZOOM;
+      //scene.add(lane.mesh);
+      //return lane;
+    }
+  }
+}
+
+function Tile(type, x_index, y_index) {
+  this.x_index = x_index;
+  this.y_index = y_index;
+  this.type = TILE_TYPE[type];
+  this.occupiedPositions = new Set();
+
+  switch (this.type) {
+    case "grass":
+      this.mesh = new GrassTile();
+      break;
+
+    case "road":
+      this.mesh = new RoadTile();
+      break;
+    default:
+      this.mesh = new GrassTile();
+      break;
+  }
+}
 
 export const initaliseValues = (
   scene,
