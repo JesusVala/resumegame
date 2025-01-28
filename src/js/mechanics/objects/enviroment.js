@@ -160,6 +160,30 @@ export function RockTile() {
   return rock;
 }
 
+export function CVBoard(){
+  const board = new THREE.Group();
+
+  const trunk = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(5 * ZOOM, 5 * ZOOM, 80 * ZOOM),
+    new THREE.MeshPhongMaterial({ color: 0x808080, flatShading: true }),
+  );
+  trunk.position.z = 40 * ZOOM;
+  trunk.castShadow = true;
+  trunk.receiveShadow = true;
+  board.add(trunk);
+
+  const sign = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(130 * ZOOM, 5 * ZOOM, 80 * ZOOM),
+    new THREE.MeshPhongMaterial({ color: 0x808080, flatShading: true }),
+  );
+  sign.position.z = 120 * ZOOM;
+  sign.castShadow = true;
+  sign.receiveShadow = true;
+  board.add(sign);
+
+  return board;
+}
+
 /**
  * Generates a tile of grass to put in the floor
  * @returns

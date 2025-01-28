@@ -7,6 +7,7 @@ import {
   ZOOM,
 } from "../../constants.js";
 import {
+CVBoard,
   Grass,
   GrassTile,
   Road,
@@ -63,6 +64,17 @@ function Tile(type, x_index, y_index) {
     case "rock":
       this.mesh = new GrassTile();
       object = new RockTile();
+      object.position.x = (POSITION_WIDTH * ZOOM) -
+        (POSITION_WIDTH * ZOOM);
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case "board":
+      this.mesh = new RoadTile();
+
+      object = new CVBoard();
       object.position.x = (POSITION_WIDTH * ZOOM) -
         (POSITION_WIDTH * ZOOM);
 
