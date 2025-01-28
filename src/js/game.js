@@ -9,6 +9,8 @@ import {
   BOARD_WIDTH,
   DISTANCE,
   INITIAL,
+  PLAYER_INITIAL_X,
+  PLAYER_INITIAL_Y,
   PLAYER_SIZE,
   POSITION_WIDTH,
   STEP_TIME,
@@ -157,7 +159,7 @@ function move(direction) {
   if (direction === "forward") {
     if (finalPositions.lane === LANES - 1) return;
     if (
-      false
+      lanes[currentColumn][finalPositions.lane + 1].occupiedPosition === true
       //lanes[finalPositions.lane + 1].type === "forest"
       //lanes[finalPositions.lane + 1].occupiedPositions.has(finalPositions.column,)
     ) return;
@@ -166,7 +168,7 @@ function move(direction) {
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
-      false
+      lanes[currentColumn][finalPositions.lane - 1].occupiedPosition === true
       //lanes[finalPositions.lane - 1].type === "forest"
       //lanes[finalPositions.lane - 1].occupiedPositions.has(finalPositions.column,)
     ) return;
@@ -174,7 +176,7 @@ function move(direction) {
   } else if (direction === "left") {
     if (finalPositions.column === 0) return;
     if (
-      false
+      lanes[currentColumn - 1][finalPositions.lane].occupiedPosition === true
       //lanes[finalPositions.lane].type === "forest"
       //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column - 1,)
     ) return;
@@ -182,7 +184,7 @@ function move(direction) {
   } else if (direction === "right") {
     if (finalPositions.column === COLUMNS - 1) return;
     if (
-      false
+      lanes[currentColumn + 1][finalPositions.lane].occupiedPosition === true
       //lanes[finalPositions.lane].type === "forest"
       //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column + 1,)
     ) return;
@@ -193,7 +195,7 @@ function move(direction) {
 
 // Initialize values after game over
 document.querySelector("#retry").addEventListener("click", () => {
-  lanes.forEach((lane) => scene.remove(lane.mesh));
+  lanes.forEach((lane) => lane.forEach((tile) => scene.remove(tile)));
   initaliseValues();
   endDOM.style.visibility = "hidden";
 });

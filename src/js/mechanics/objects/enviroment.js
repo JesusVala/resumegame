@@ -1,4 +1,9 @@
-import { BOARD_WIDTH, POSITION_WIDTH, TILE_SIZE, ZOOM } from "../../constants.js";
+import {
+  BOARD_WIDTH,
+  POSITION_WIDTH,
+  TILE_SIZE,
+  ZOOM,
+} from "../../constants.js";
 const threeHeights = [20, 45, 60];
 
 /**
@@ -104,6 +109,55 @@ export function RoadTile() {
 
   grass.position.z = 1.5 * ZOOM;
   return grass;
+}
+
+/**
+ * Generates a Three object for an tile of grass
+ * @returns THREE.Group
+ */
+export function ThreeTile() {
+  const three = new THREE.Group();
+
+  const trunk = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(15 * ZOOM, 15 * ZOOM, 20 * ZOOM),
+    new THREE.MeshPhongMaterial({ color: 0x4d2926, flatShading: true }),
+  );
+  trunk.position.z = 10 * ZOOM;
+  trunk.castShadow = true;
+  trunk.receiveShadow = true;
+  three.add(trunk);
+
+  const height = threeHeights[Math.floor(Math.random() * threeHeights.length)];
+
+  const crown = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(30 * ZOOM, 30 * ZOOM, height * ZOOM),
+    new THREE.MeshLambertMaterial({ color: 0x7aa21d, flatShading: true }),
+  );
+  crown.position.z = (height / 2 + 20) * ZOOM;
+  crown.castShadow = true;
+  crown.receiveShadow = false;
+  three.add(crown);
+
+  return three;
+}
+
+/**
+ * Generates a Three object for an tile of grass
+ * @returns THREE.Group
+ */
+export function RockTile() {
+  const rock = new THREE.Group();
+
+  const r1 = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(15 * ZOOM, 1),
+    new THREE.MeshPhongMaterial({ color: 0x808080, flatShading: true }),
+  );
+  //r1.position.z = 10 * ZOOM;
+  r1.castShadow = true;
+  r1.receiveShadow = true;
+  rock.add(r1);
+
+  return rock;
 }
 
 /**

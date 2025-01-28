@@ -6,40 +6,69 @@ import {
   POSITION_WIDTH,
   ZOOM,
 } from "../../constants.js";
-import { Grass, GrassTile, RoadTile, Road, Three } from "../objects/enviroment.js";
+import {
+  Grass,
+  GrassTile,
+  Road,
+  RoadTile,
+  RockTile,
+  Three,
+  ThreeTile,
+} from "../objects/enviroment.js";
 import { Car, Truck } from "../objects/vehicles.js";
 import { INTROMAP, TILE_TYPE } from "../maps/intro_map.js";
 
 export function generateMap(scene) {
+  const tileMap = new Array(INTROMAP.length);
   for (let x = 0; x < INTROMAP.length; x++) {
+    tileMap[x] = new Array(INTROMAP[x].length);
     for (let y = 0; y < INTROMAP[x].length; y++) {
-      //generateTile(INTROMAP, x, y);
       const tile = new Tile(INTROMAP[x][y], x, y);
-      //tile.mesh.position.x = x * ZOOM;
       tile.mesh.position.x = (x * POSITION_WIDTH * ZOOM) -
         (POSITION_WIDTH * ZOOM);
       tile.mesh.position.y = y * POSITION_WIDTH * ZOOM;
+
       scene.add(tile.mesh);
-      //lane.mesh.position.y = index * POSITION_WIDTH * ZOOM;
-      //scene.add(lane.mesh);
-      //return lane;
+      tileMap[x][y] = tile;
     }
   }
+  return tileMap;
 }
 
 function Tile(type, x_index, y_index) {
   this.x_index = x_index;
   this.y_index = y_index;
   this.type = TILE_TYPE[type];
-  this.occupiedPositions = new Set();
+  this.occupiedPosition = false;
+  let object = null;
 
   switch (this.type) {
     case "grass":
       this.mesh = new GrassTile();
       break;
-
     case "road":
       this.mesh = new RoadTile();
+      break;
+    case "three":
+      this.mesh = new GrassTile();
+
+      object = new ThreeTile();
+      object.position.x = (POSITION_WIDTH * ZOOM) -
+        (POSITION_WIDTH * ZOOM);
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case "rock":
+      this.mesh = new GrassTile();
+      object = new RockTile();
+      object.position.x = (POSITION_WIDTH * ZOOM) -
+        (POSITION_WIDTH * ZOOM);
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
       break;
     default:
       this.mesh = new GrassTile();
