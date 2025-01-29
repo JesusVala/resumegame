@@ -18,8 +18,16 @@ import {
   WaterTile,
 } from "../objects/enviroment.js";
 import { Car, Truck } from "../objects/vehicles.js";
-import { INTROMAP, TILE_TYPE, TILETYPE } from "../maps/intro_map.js";
-import { TourBuilding } from "../objects/building.js";
+import { INTROMAP, TILETYPE } from "../maps/intro_map.js";
+import {
+AGBoard,
+  BoschBoard,
+  BoschCubes,
+  BoschDigital,
+  LubtracBoard,
+  LubtracContainner,
+  TourBuilding,
+} from "../objects/building.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -81,6 +89,14 @@ function Tile(type, x_index, y_index) {
       this.mesh = new WaterTile();
       this.occupiedPosition = true;
       break;
+    case TILETYPE.VEHICLE:
+      this.mesh = new RoadTile();
+      object = new Car();
+      object.position.x = POSITION_WIDTH * ZOOM / 2;
+
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
     case TILETYPE.TOURBUILDING:
       this.mesh = new RoadTile();
       object = new TourBuilding();
@@ -95,8 +111,54 @@ function Tile(type, x_index, y_index) {
       this.mesh = new RoadTile();
 
       object = new CVBoard();
-      object.position.x = (POSITION_WIDTH * ZOOM) -
-        (POSITION_WIDTH * ZOOM);
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.LUBTRAC_CONTAINNER:
+      this.mesh = new RoadTile();
+      object = new LubtracContainner();
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.LUBTRAC_BOARD:
+      this.mesh = new RoadTile();
+      object = new LubtracBoard();
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.BOSCH_CUBES:
+      this.mesh = new RoadTile();
+      object = new BoschCubes();
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.BOSCH_BOARD:
+      this.mesh = new RoadTile();
+      object = new BoschBoard();
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.BOSCH_DIGITAL:
+      this.mesh = new RoadTile();
+      object = new BoschDigital();
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.AG_BOARD:
+      this.mesh = new RoadTile();
+      object = new AGBoard();
 
       this.mesh.add(object);
 
