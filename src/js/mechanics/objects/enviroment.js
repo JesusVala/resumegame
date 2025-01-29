@@ -111,6 +111,27 @@ export function RoadTile() {
   return grass;
 }
 
+export function WaterTile() {
+  const grass = new THREE.Group();
+
+  const createSection = (color) =>
+    new THREE.Mesh(
+      new THREE.BoxBufferGeometry(
+        TILE_SIZE * ZOOM,
+        POSITION_WIDTH * ZOOM,
+        //3 * ZOOM,
+      ),
+      new THREE.MeshPhongMaterial({ color }),
+    );
+
+  const tile = createSection(0x0080FF);
+  tile.receiveShadow = true;
+  grass.add(tile);
+
+  grass.position.z = 1.5 * ZOOM;
+  return grass;
+}
+
 /**
  * Generates a Three object for an tile of grass
  * @returns THREE.Group

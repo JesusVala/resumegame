@@ -159,7 +159,7 @@ function move(direction) {
   if (direction === "forward") {
     if (finalPositions.lane === LANES - 1) return;
     if (
-      lanes[currentColumn][finalPositions.lane + 1].occupiedPosition === true
+      lanes[finalPositions.column][finalPositions.lane + 1].occupiedPosition === true
       //lanes[finalPositions.lane + 1].type === "forest"
       //lanes[finalPositions.lane + 1].occupiedPositions.has(finalPositions.column,)
     ) return;
@@ -168,7 +168,7 @@ function move(direction) {
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
-      lanes[currentColumn][finalPositions.lane - 1].occupiedPosition === true
+      lanes[finalPositions.column][finalPositions.lane - 1].occupiedPosition === true
       //lanes[finalPositions.lane - 1].type === "forest"
       //lanes[finalPositions.lane - 1].occupiedPositions.has(finalPositions.column,)
     ) return;
@@ -176,7 +176,7 @@ function move(direction) {
   } else if (direction === "left") {
     if (finalPositions.column === 0) return;
     if (
-      lanes[currentColumn - 1][finalPositions.lane].occupiedPosition === true
+      lanes[finalPositions.column - 1][finalPositions.lane].occupiedPosition === true
       //lanes[finalPositions.lane].type === "forest"
       //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column - 1,)
     ) return;
@@ -184,7 +184,7 @@ function move(direction) {
   } else if (direction === "right") {
     if (finalPositions.column === COLUMNS - 1) return;
     if (
-      lanes[currentColumn + 1][finalPositions.lane].occupiedPosition === true
+      lanes[finalPositions.column + 1][finalPositions.lane].occupiedPosition === true
       //lanes[finalPositions.lane].type === "forest"
       //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column + 1,)
     ) return;

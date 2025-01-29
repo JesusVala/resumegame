@@ -7,7 +7,7 @@ import {
   ZOOM,
 } from "../../constants.js";
 import {
-CVBoard,
+  CVBoard,
   Grass,
   GrassTile,
   Road,
@@ -15,9 +15,10 @@ CVBoard,
   RockTile,
   Three,
   ThreeTile,
+  WaterTile,
 } from "../objects/enviroment.js";
 import { Car, Truck } from "../objects/vehicles.js";
-import { INTROMAP, TILE_TYPE } from "../maps/intro_map.js";
+import { INTROMAP, TILE_TYPE, TILETYPE } from "../maps/intro_map.js";
 import { TourBuilding } from "../objects/building.js";
 
 export function generateMap(scene) {
@@ -40,18 +41,18 @@ export function generateMap(scene) {
 function Tile(type, x_index, y_index) {
   this.x_index = x_index;
   this.y_index = y_index;
-  this.type = TILE_TYPE[type];
+  this.type = type;
   this.occupiedPosition = false;
   let object = null;
 
   switch (this.type) {
-    case "grass":
+    case TILETYPE.GRASS:
       this.mesh = new GrassTile();
       break;
-    case "road":
+    case TILETYPE.ROAD:
       this.mesh = new RoadTile();
       break;
-    case "three":
+    case TILETYPE.THREE:
       this.mesh = new GrassTile();
 
       object = new ThreeTile();
@@ -62,7 +63,7 @@ function Tile(type, x_index, y_index) {
 
       this.occupiedPosition = true;
       break;
-    case "rock":
+    case TILETYPE.ROCK:
       this.mesh = new GrassTile();
       object = new RockTile();
       object.position.x = (POSITION_WIDTH * ZOOM) -
@@ -72,21 +73,25 @@ function Tile(type, x_index, y_index) {
 
       this.occupiedPosition = true;
       break;
-    case 'occupied':
+    case TILETYPE.OCCUPIED:
       this.mesh = new RoadTile();
       this.occupiedPosition = true;
       break;
-    case 'tourbuilding':
+    case TILETYPE.WATER:
+      this.mesh = new WaterTile();
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.TOURBUILDING:
       this.mesh = new RoadTile();
       object = new TourBuilding();
-      object.position.x = (POSITION_WIDTH * ZOOM);
-      object.position.y = (POSITION_WIDTH * ZOOM)/-2;
+      object.position.x = POSITION_WIDTH * ZOOM;
+      object.position.y = (POSITION_WIDTH * ZOOM) / -2;
 
       this.mesh.add(object);
 
       this.occupiedPosition = true;
       break;
-    case "board":
+    case TILETYPE.BOARD:
       this.mesh = new RoadTile();
 
       object = new CVBoard();
