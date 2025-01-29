@@ -18,6 +18,7 @@ CVBoard,
 } from "../objects/enviroment.js";
 import { Car, Truck } from "../objects/vehicles.js";
 import { INTROMAP, TILE_TYPE } from "../maps/intro_map.js";
+import { TourBuilding } from "../objects/building.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -66,6 +67,20 @@ function Tile(type, x_index, y_index) {
       object = new RockTile();
       object.position.x = (POSITION_WIDTH * ZOOM) -
         (POSITION_WIDTH * ZOOM);
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case 'occupied':
+      this.mesh = new RoadTile();
+      this.occupiedPosition = true;
+      break;
+    case 'tourbuilding':
+      this.mesh = new RoadTile();
+      object = new TourBuilding();
+      object.position.x = (POSITION_WIDTH * ZOOM);
+      object.position.y = (POSITION_WIDTH * ZOOM)/-2;
 
       this.mesh.add(object);
 
