@@ -20,14 +20,18 @@ import {
 import { Car, Truck } from "../objects/vehicles.js";
 import { INTROMAP, TILETYPE } from "../maps/intro_map.js";
 import {
-AGBoard,
+  AGBoard,
+  AGBuilding,
   BoschBoard,
   BoschCubes,
   BoschDigital,
+  BusSign,
+  BusStop,
   LubtracBoard,
   LubtracContainner,
   TourBuilding,
 } from "../objects/building.js";
+import { Dialog } from "../objects/actionables.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -97,6 +101,12 @@ function Tile(type, x_index, y_index) {
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;
+    case TILETYPE.TEST:
+      this.mesh = new GrassTile();
+      object = new Dialog();
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
     case TILETYPE.TOURBUILDING:
       this.mesh = new RoadTile();
       object = new TourBuilding();
@@ -162,6 +172,28 @@ function Tile(type, x_index, y_index) {
 
       this.mesh.add(object);
 
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.BUS_SIGN:
+      this.mesh = new GrassTile();
+      object = new BusSign();
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.BUS_STOP:
+      this.mesh = new GrassTile();
+      object = new BusStop();
+
+      this.mesh.add(object);
+
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.AG_BUILDING:
+      this.mesh = new RoadTile();
+      object = new AGBuilding();
+      this.mesh.add(object);
       this.occupiedPosition = true;
       break;
     default:
