@@ -1,8 +1,8 @@
-
 import { bearPlayer } from "./objects/bear.js";
 import { cowPlayer } from "./objects/cow.js";
 import { pandaPlayer } from "./objects/panda.js";
 import { porkPlayer } from "./objects/pork.js";
+import { sheepPlayer } from "./objects/sheep.js";
 
 /**
  * Generates a TREE.GROUP to act as a character player
@@ -12,12 +12,18 @@ export function Player(playerModelName) {
   switch (playerModelName) {
     case "cow":
       return cowPlayer();
-    case 'panda':
-        return pandaPlayer();
-    case 'bear':
-        return bearPlayer();
-    case 'pig':
+    case "panda":
+      return pandaPlayer();
+    case "bear":
+      return bearPlayer();
+    case "pork":
       return porkPlayer();
+    case "sheep":
+      return sheepPlayer("white");
+    case "sheep_black":
+      return sheepPlayer("black");
+    case "sheep_pink":
+      return sheepPlayer("pink");
     default:
       return originalChickenPlayer();
   }
