@@ -1,11 +1,38 @@
 import { PLAYER_SIZE, ZOOM } from "../../constants.js";
 
 const COLORS = Object.freeze({
+  GENERAL: {
+    BLACK: "rgb(48,48,48)",
+    WHITE: "rgb(255,255,255)",
+  },
   COW: {
     BASE: "rgb(255, 255, 255)",
     BROWN: "rgb(105, 59, 7)",
     PINK: "rgb(232, 106, 218)",
     BLACK: "rgb(0, 0, 0)",
+  },
+  BEAR: {
+    BROWN: "rgb(165,97,51)",
+  },
+  PORK: {
+    PINK: "rgb(255,173,205)",
+    DARKPINK: "rgb(255,112,167)",
+    BROWN: "rgb(188,111,58)",
+  },
+  SHEEP: {
+    BROWN: "rgb(188,111,58)",
+    PINK: "rgb(255,173,205)",
+    SKIN: "rgb(253,221,202)",
+  },
+  FROG: {
+    GREEN: "rgb(62,212,107)",
+    YELLOW: "rgb(255,192,3)",
+    PINK: "rgb(255,173,205)",
+  },
+  FISH: {
+    ORANGE: "rgb(255,71,0)",
+    DARKYELLOW: "rgb(255,165,0)",
+    YELLOW: "rgb(255,192,3)",
   },
 });
 const TEXTURES = Object.freeze({
@@ -47,6 +74,33 @@ const TEXTURES = Object.freeze({
       { x: 0, y: 60, w: 20, h: 10, color: COLORS.COW.BROWN },
       { x: 60, y: 20, w: 10, h: 40, color: COLORS.COW.BROWN },
       { x: 50, y: 30, w: 10, h: 10, color: COLORS.COW.BROWN },
+    ]),
+  },
+  PANDA: {
+    RIGHT: new CanvasTexture(64, 64, [
+      { x: 40, y: 8, w: 24, h: 48, color: COLORS.GENERAL.BLACK },
+      { x: 24, y: 16, w: 16, h: 32, color: COLORS.GENERAL.BLACK },
+      { x: 8, y: 32, w: 16, h: 16, color: COLORS.GENERAL.BLACK },
+      { x: 0, y: 40, w: 8, h: 8, color: COLORS.GENERAL.BLACK },
+    ]),
+    LEFT: new CanvasTexture(64, 64, [
+      { x: 0, y: 8, w: 24, h: 48, color: COLORS.GENERAL.BLACK },
+      { x: 24, y: 16, w: 16, h: 32, color: COLORS.GENERAL.BLACK },
+      { x: 40, y: 32, w: 16, h: 16, color: COLORS.GENERAL.BLACK },
+      { x: 56, y: 40, w: 8, h: 8, color: COLORS.GENERAL.BLACK },
+    ]),
+    FRONT: new CanvasTexture(64, 64, [
+      { x: 8, y: 32, w: 16, h: 16, color: COLORS.GENERAL.BLACK },
+      { x: 40, y: 32, w: 16, h: 16, color: COLORS.GENERAL.BLACK },
+      { x: 24, y: 16, w: 16, h: 8, color: COLORS.GENERAL.BLACK },
+    ]),
+    BACK: new CanvasTexture(64, 64, [
+      { x: 24, y: 40, w: 16, h: 16, color: COLORS.GENERAL.BLACK },
+    ]),
+    TOP: new CanvasTexture(64, 64, [
+      { x: 0, y: 8, w: 24, h: 8, color: COLORS.GENERAL.BLACK },
+      { x: 40, y: 8, w: 24, h: 8, color: COLORS.GENERAL.BLACK },
+      { x: 0, y: 40, w: 64, h: 8, color: COLORS.GENERAL.BLACK },
     ]),
   },
 });
@@ -179,6 +233,103 @@ function cowPlayer() {
 
   const tail = new THREE.Mesh(
     new THREE.BoxBufferGeometry(2 * ZOOM, 2 * ZOOM, 4 * ZOOM),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.COW.BLACK,
+      flatShading: true,
+    }),
+  );
+  tail.position.z = (PLAYER_SIZE / 3) * ZOOM;
+  tail.position.y = -(PLAYER_SIZE / 1.8) * ZOOM;
+  tail.castShadow = true;
+  tail.receiveShadow = false;
+  player.add(tail);
+
+  return player;
+}
+
+export function pandaPlayer() {
+  const player = new THREE.Group();
+  const materials = [
+    new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      map: TEXTURES.PANDA.RIGHT,
+    }), //right
+    new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      map: TEXTURES.PANDA.LEFT,
+    }), //left
+    new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      map: TEXTURES.PANDA.FRONT,
+    }), //front
+    new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      map: TEXTURES.PANDA.BACK,
+    }), //back
+    new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      map: TEXTURES.PANDA.TOP,
+    }), //top
+    new THREE.MeshBasicMaterial({ color: 0xf01223, side: THREE.DoubleSide }), //botom
+  ];
+
+  const body = new THREE.Mesh(
+    new THREE.BoxGeometry(
+      PLAYER_SIZE * ZOOM,
+      PLAYER_SIZE * ZOOM,
+      PLAYER_SIZE * ZOOM,
+    ),
+    materials,
+    //new THREE.MeshPhongMaterial({ color: 0xffffff, flatShading: true }),
+  );
+  body.position.z = 8 * ZOOM;
+  body.castShadow = true;
+  body.receiveShadow = true;
+  player.add(body);
+
+  const nose = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(6 * ZOOM, 1 * ZOOM, 2 * ZOOM),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.GENERAL.BLACK,
+      flatShading: true,
+    }),
+  );
+  nose.position.z = (PLAYER_SIZE / 3) * ZOOM;
+  nose.position.y = (PLAYER_SIZE / 1.8) * ZOOM;
+  nose.castShadow = true;
+  nose.receiveShadow = false;
+  player.add(nose);
+
+  const leftHorn = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(6 * ZOOM, 2 * ZOOM, 2 * ZOOM),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.GENERAL.BLACK,
+      flatShading: true,
+    }),
+  );
+  leftHorn.position.z = (PLAYER_SIZE + 1.5) * ZOOM;
+  leftHorn.position.y = (PLAYER_SIZE / 3.5) * ZOOM;
+  leftHorn.position.x = (PLAYER_SIZE / 3.3) * ZOOM;
+  leftHorn.castShadow = true;
+  leftHorn.receiveShadow = false;
+  player.add(leftHorn);
+
+  const rightHorn = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(6 * ZOOM, 2 * ZOOM, 2 * ZOOM),
+    new THREE.MeshLambertMaterial({
+      color: COLORS.GENERAL.BLACK,
+      flatShading: true,
+    }),
+  );
+  rightHorn.position.z = (PLAYER_SIZE + 1.5) * ZOOM;
+  rightHorn.position.y = (PLAYER_SIZE / 3.5) * ZOOM;
+  rightHorn.position.x = -(PLAYER_SIZE / 3.3) * ZOOM;
+  rightHorn.castShadow = true;
+  rightHorn.receiveShadow = false;
+  player.add(rightHorn);
+
+  const tail = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(3 * ZOOM, 2 * ZOOM, 3 * ZOOM),
     new THREE.MeshLambertMaterial({
       color: COLORS.COW.BLACK,
       flatShading: true,
