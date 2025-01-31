@@ -42,6 +42,7 @@ export function generateMap(scene) {
       tile.mesh.position.x = (x * POSITION_WIDTH * ZOOM) -
         (POSITION_WIDTH * ZOOM);
       tile.mesh.position.y = y * POSITION_WIDTH * ZOOM;
+      tile.mesh.position.z = 0;
 
       scene.add(tile.mesh);
       tileMap[x][y] = tile;
@@ -103,8 +104,8 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new Player('sheep_pink');
-      //object.rotation.z = Math.PI;
+      object = new Player('frog');
+      object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;

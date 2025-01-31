@@ -116,4 +116,27 @@ export const TEXTURES = {
       { x: 40, y: 40, w: 16, h: 16, color: COLORS.PORK.BROWN },
     ]),
   },
+  FROG: {
+    RIGHT: new CanvasTexture(64, 64, [
+      { x: 0, y: 0, w: 64, h: 64, color: COLORS.FROG.GREEN },
+      { x: 56, y: 0, w: 8, h: 64, color: COLORS.FROG.YELLOW },
+    ]),
+    LEFT: new CanvasTexture(64, 64, [
+      { x: 0, y: 0, w: 64, h: 64, color: COLORS.FROG.GREEN },
+      { x: 0, y: 0, w: 8, h: 64, color: COLORS.FROG.YELLOW },
+    ]),
+    FRONT: new CanvasTexture(64, 64, [
+      { x: 0, y: 0, w: 64, h: 64, color: COLORS.FROG.GREEN },
+      { x: 8, y: 48, w: 10, h: 10, color: COLORS.GENERAL.BLACK },
+      { x: 46, y: 48, w: 10, h: 10, color: COLORS.GENERAL.BLACK },
+      { x: 8, y: 30, w: 10, h: 10, color: COLORS.FROG.PINK },
+      { x: 46, y: 30, w: 10, h: 10, color: COLORS.FROG.PINK },
+      { x: 20, y: 20, w: 24, h: 10, color: COLORS.GENERAL.BLACK },
+      { x: 0, y: 0, w: 64, h: 8, color: COLORS.FROG.YELLOW },
+    ]),
+    BACK: new CanvasTexture(64, 64, [
+      { x: 0, y: 0, w: 64, h: 64, color: COLORS.FROG.GREEN },
+      { x: 0, y: 56, w: 64, h: 8, color: COLORS.FROG.YELLOW },
+    ]),
+  },
 };

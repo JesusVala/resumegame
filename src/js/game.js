@@ -66,7 +66,7 @@ let moves;
 let pointDirection;
 
 //Creation of player
-const player = new Player("cow");
+const player = new Player("frog");
 scene.add(player);
 
 const hemiLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
