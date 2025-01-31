@@ -10,7 +10,7 @@ import esbuild from "lume/plugins/esbuild.ts";
 const site = lume(
   {
     src: "./src",
-    dest: "./output",
+    dest: "./_site",
     server: {
       port: 8000,
     },
