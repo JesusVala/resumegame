@@ -1,3 +1,4 @@
 _site
 _cache
 output/*
+output/index.html
