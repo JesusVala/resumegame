@@ -22,7 +22,7 @@ import {
   generateMap,
 } from "./mechanics/behavior/mapCreator.js";
 import { INTROMAP } from "./mechanics/maps/intro_map.js";
-import { Player } from "./mechanics/objects/player.js";
+import { Player } from "./mechanics/objects/player/player.js";
 
 //Counter of points to make
 const counterDOM = document.getElementById("counter");

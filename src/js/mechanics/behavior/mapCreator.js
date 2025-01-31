@@ -31,8 +31,7 @@ import {
   LubtracContainner,
   TourBuilding,
 } from "../objects/building.js";
-import { Dialog } from "../objects/actionables.js";
-import { bearPlayer, pandaPlayer } from "../objects/player.js";
+import { Player } from "../objects/player/player.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -104,8 +103,8 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new bearPlayer()
-      //object.rotation.z = Math.PI;
+      object = new Player('bear');
+      object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;
