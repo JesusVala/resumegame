@@ -32,7 +32,7 @@ import {
   TourBuilding,
 } from "../objects/building.js";
 import { Dialog } from "../objects/actionables.js";
-import { pandaPlayer } from "../objects/player.js";
+import { bearPlayer, pandaPlayer } from "../objects/player.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -104,8 +104,8 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new pandaPlayer()
-      object.rotation.z = -Math.PI /2;
+      object = new bearPlayer()
+      //object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;
