@@ -104,7 +104,7 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new Player('frog');
+      object = new Player('fish');
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.occupiedPosition = true;

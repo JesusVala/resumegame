@@ -139,4 +139,21 @@ export const TEXTURES = {
       { x: 0, y: 56, w: 64, h: 8, color: COLORS.FROG.YELLOW },
     ]),
   },
+  FISH: {
+    RIGHT: new CanvasTexture(64, 64, [
+      { x: 0, y: 0, w: 64, h: 64, color: COLORS.FISH.DARKYELLOW },
+      { x: 32, y: 0, w: 8, h: 8, color: COLORS.FISH.ORANGE },
+    ]),
+    LEFT: new CanvasTexture(64, 64, [
+      { x: 0, y: 0, w: 64, h: 64, color: COLORS.FISH.DARKYELLOW },
+      { x: 24, y: 0, w: 8, h: 8, color: COLORS.FISH.ORANGE },
+    ]),
+    FRONT: new CanvasTexture(64, 64, [
+      { x: 0, y: 0, w: 64, h: 64, color: COLORS.FISH.DARKYELLOW },
+      { x: 16, y: 40, w: 8, h: 8, color: COLORS.GENERAL.BLACK },
+      { x: 40, y: 40, w: 8, h: 8, color: COLORS.GENERAL.BLACK },
+      { x: 0, y: 24, w: 8, h: 8, color: COLORS.FISH.ORANGE },
+      { x: 56, y: 24, w: 8, h: 8, color: COLORS.FISH.ORANGE },
+    ]),
+  },
 };

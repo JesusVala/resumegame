@@ -4,6 +4,7 @@ import { pandaPlayer } from "./objects/panda.js";
 import { porkPlayer } from "./objects/pork.js";
 import { sheepPlayer } from "./objects/sheep.js";
 import { frogPlayer } from "./objects/frog.js";
+import { fishPlayer } from "./objects/fish.js";
 
 /**
  * Generates a TREE.GROUP to act as a character player
@@ -27,6 +28,8 @@ export function Player(playerModelName) {
       return sheepPlayer("pink");
     case 'frog':
       return frogPlayer();
+    case 'fish':
+      return fishPlayer();
     default:
       return originalChickenPlayer();
   }
