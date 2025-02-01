@@ -1,4 +1,4 @@
-import { CanvasTexture } from "../player.js";
+import { CanvasTexture } from "../mechanics/objects/player/player.js";
 import { COLORS } from "./colors.js";
 
 export const TEXTURES = {

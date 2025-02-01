@@ -1,6 +1,6 @@
 import { PLAYER_SIZE, ZOOM } from "../../../../constants.js";
-import { COLORS } from "../assets/colors.js";
-import { TEXTURES } from "../assets/textures.js";
+import { COLORS } from "../../../../assets/colors.js";
+import { TEXTURES } from "../../../../assets/textures.js";
 
 export function porkPlayer() {
   const player = new THREE.Group();

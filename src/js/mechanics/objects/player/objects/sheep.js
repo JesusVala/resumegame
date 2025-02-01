@@ -1,5 +1,5 @@
 import { PLAYER_SIZE, ZOOM } from "../../../../constants.js";
-import { COLORS } from "../assets/colors.js";
+import { COLORS } from "../../../../assets/colors.js";
 
 export function sheepPlayer(color) {
   let colorSheep;

@@ -1,3 +1,4 @@
+import { IMAGES } from "../../assets/images.js";
 import {
   BOARD_WIDTH,
   POSITION_WIDTH,
@@ -5,6 +6,8 @@ import {
   ZOOM,
 } from "../../constants.js";
 const threeHeights = [20, 45, 60];
+
+
 
 /**
  * Generates a Three object in a random height
@@ -80,6 +83,7 @@ export function GrassTile() {
         //3 * ZOOM,
       ),
       new THREE.MeshPhongMaterial({ color }),
+      //new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(IMAGES.TEXTURES.DUMMY.IMAGE_600_400) } ),
     );
 
   const tile = createSection(0xbaf455);
@@ -195,7 +199,8 @@ export function CVBoard(){
 
   const sign = new THREE.Mesh(
     new THREE.BoxBufferGeometry(130 * ZOOM, 5 * ZOOM, 80 * ZOOM),
-    new THREE.MeshPhongMaterial({ color: 0x808080, flatShading: true }),
+    new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load( 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFEAAABZBAMAAAC08tVoAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAAAeUExURQAAABYcLhYcLj6GmFqzrEBOddW1g5d7a+/hq////55qkaMAAAACdFJOUwBQHficzAAAAAFiS0dECfHZpewAAAAHdElNRQfpAR8WMCFDAXf8AAAAAW9yTlQBz6J3mgAAA0dJREFUSMftlrty4kAQRUGZs8VfoL0CYVKNKed4qjbHxQ8oGHCqAOUEqiElsv52b7cQRi+0yWbuAAQ66vd0azL5kf8lwD+CARD+G49ISGAUDfCehPw0dgwN5lbIubVWvXhgfG43oXza9+SxUrwqaaygD8mIJAJYa+Yj5iPzukFlXBx+SFqjpN3MR8jImK26aWEehoTI7HYfRtD1x0OSOV/vjDF0IFmMpGlBnQmLGSUjVQqIbqXsSMZqrxScw3q0TQRYHl26w3hHBVSppEvH2iR2KvxOoU+i/wlV6Q6+SFE4qD9x2k8uCXpKAe+c9PXG9fvLcKjRl18eL/4E9vUAGUDJc+l9+uLJYD5oPL9a9ynobAg7QGKp3JnWT5nQw2SubvqyLIvs/FWQXPaSgZBqu/RFJgmA+bNHr/FjRZYl9TGuFK+bZQ+JG+mF9CXzH5llFvaAeYP0zGhk3nJ0nARIHnwlRcqrYgXzFqPjZFaTZ/GTqSd5MaadJ8aNb9JrkbxfXSKDVj3pJNHausRdk0ncJTMW81DckafVBW3zjCfPU9QkUy8RnVZHRDZqklR5dEzolfRKYuXSyL43HGVArOQ+iw9VQs9f+wPT+emkTHGbZNqBK+k9SR6mwwm2Qx71pIHRu4o8yaHyHKiNkGoylYMeC8rLWGpLEo2QtDtqFHre5UDziJgO6XqEB5Tjv0VKF8tJb5Cf7tTRGWBZoV5nQ6Enz33SmdcOqeNDG65WzbSiS05QocpWI0eqibBL6kisUuWuHQWsdJWh06Eq8bXrT/JjpauvTdbovQjZ1VlP7zsJn/gndyS65OKeW2wrEn3kbXtQdryUPzftkR/U979FyEAapqnzyplv8GOHp6oijTFSqVxwHd5AI6SobJJ8dJ/JPpQlW8laySTmjQbJP0TpjSO5xdMl6iNlNNyppPFQSBkZkybpcqj5GmToTzAJ8qyPVLTOkb5nJe3Ec7vt87uUbjXfAednZ9ey57OQKu/KqW8cy04pJaHT50aD/J70z3nemTVbib8HdsdsVt0XUXQ2sI+mMzE+u8pzRfbuuOk9WKFD5M307OZA/y6ezjryPLDfe8iBd4au0sH3kDb64N2m4cCvyWOZ3vT9yE3+AkeBuA+G1edxAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI1LTAxLTMxVDIyOjQ4OjE4KzAwOjAwsHzXFgAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNS0wMS0zMVQyMjo0ODoxOCswMDowMMEhb6oAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjUtMDEtMzFUMjI6NDg6MzMrMDA6MDDWFh3yAAAAAElFTkSuQmCC' ) })
+    //new THREE.MeshPhongMaterial({ color: 0x808080, flatShading: true }),
   );
   sign.position.z = 120 * ZOOM;
   sign.castShadow = true;
