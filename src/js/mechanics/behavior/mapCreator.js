@@ -32,6 +32,7 @@ import {
   TourBuilding,
 } from "../objects/building.js";
 import { Player } from "../objects/player/player.js";
+import { Coin } from "../objects/actionables.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -48,6 +49,7 @@ export function generateMap(scene) {
       tileMap[x][y] = tile;
     }
   }
+  console.log(tileMap)
   return tileMap;
 }
 
@@ -104,8 +106,8 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new Player('fish');
-      object.rotation.z = Math.PI;
+      object = new Coin();
+      //object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;
@@ -197,6 +199,11 @@ function Tile(type, x_index, y_index) {
       object = new AGBuilding();
       this.mesh.add(object);
       this.occupiedPosition = true;
+      break;
+    case TILETYPE.COIN:
+      this.mesh = new GrassTile();
+      object = new Coin();
+      this.mesh.add(object);
       break;
     default:
       this.mesh = new GrassTile();

@@ -67,3 +67,24 @@ export function Dialog() {
 
   return dialog;
 }
+
+export function Coin() {
+  const coin = new THREE.Group();
+  coin.name = 'coin';
+
+  const metal = new THREE.Mesh(
+      new THREE.CylinderGeometry(
+        10 * ZOOM,
+        10 * ZOOM,
+        2  * ZOOM,
+        10,
+      ),
+      new THREE.MeshPhongMaterial({ color: 0xE1B530, flatShading: true }),
+    );
+
+  metal.castShadow = true;
+  metal.position.z = 10 * ZOOM;
+  coin.add(metal);
+
+  return coin;
+}

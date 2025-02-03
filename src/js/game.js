@@ -21,7 +21,7 @@ import {
   generateLanes,
   generateMap,
 } from "./mechanics/behavior/mapCreator.js";
-import { INTROMAP } from "./mechanics/maps/intro_map.js";
+import { INTROMAP, TILETYPE } from "./mechanics/maps/intro_map.js";
 import { Player } from "./mechanics/objects/player/player.js";
 
 //Counter of points to make
@@ -236,6 +236,22 @@ function animate(timestamp) {
   const delta = timestamp - previousTimestamp;
   previousTimestamp = timestamp;
 
+
+  //Animation
+
+  
+  lanes.forEach((lane) => {
+    lane.forEach((element) => {
+      if(element.type === TILETYPE.COIN){
+        element.mesh.children.forEach((obj) => {
+          if(obj.name === 'coin'){
+            obj.rotation.z += (1/100) * delta;
+          }
+        })
+        
+      }
+    }); 
+  } );
   // Animate cars and trucks moving on the lane
   /*
   lanes.forEach((lane) => {
@@ -394,13 +410,13 @@ function animate(timestamp) {
       switch (moves[0]) {
         case "forward": {
           currentLane++;
-          counterDOM.innerHTML = currentLane;
+          //counterDOM.innerHTML = currentLane;
           pointDirection = "forward";
           break;
         }
         case "backward": {
           currentLane--;
-          counterDOM.innerHTML = currentLane;
+          //counterDOM.innerHTML = currentLane;
           pointDirection = "backward";
           break;
         }
@@ -420,6 +436,29 @@ function animate(timestamp) {
       stepStartTimestamp = moves.length === 0 ? null : timestamp;
     }
   }
+
+  // Hit test coin collector
+  if(lanes[currentColumn][currentLane].type === TILETYPE.COIN){
+    lanes[currentColumn][currentLane].mesh.children.pop();
+    console.log('aa')
+    lanes[currentColumn][currentLane].type = TILETYPE.GRASS;
+    ++counterDOM.innerHTML;
+  }
+
+  /*
+   lanes.forEach((lane) => {
+    lane.forEach((element) => {
+      if(element.type === TILETYPE.COIN){
+        element.mesh.children.forEach((obj) => {
+          if(obj.name === 'coin'){
+            obj.rotation.z += (1/100) * delta;
+          }
+        })
+        
+      }
+    }); 
+  } );
+   */
 
   // Hit test
   /*

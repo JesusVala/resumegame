@@ -1,4 +1,3 @@
-import { IMAGES } from "../../assets/images.js";
 import {
   BOARD_WIDTH,
   POSITION_WIDTH,
