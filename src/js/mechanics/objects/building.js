@@ -466,7 +466,6 @@ export function AGBuilding() {
   disk.receiveShadow = true;
   building.add(disk);
 
-
   return building;
 }
 
@@ -498,7 +497,7 @@ export function ConstructionBuilding() {
   );
   column_2.position.z = TILE_SIZE * ZOOM;
   column_2.position.y = TILE_SIZE * ZOOM / 2;
-  column_2.position.x = -TILE_SIZE * ZOOM / 2 ;
+  column_2.position.x = -TILE_SIZE * ZOOM / 2;
   column_2.castShadow = true;
   column_2.receiveShadow = true;
   building.add(column_2);
@@ -513,7 +512,7 @@ export function ConstructionBuilding() {
   );
   column_3.position.z = TILE_SIZE * ZOOM;
   column_3.position.y = TILE_SIZE * ZOOM / 2;
-  column_3.position.x = TILE_SIZE * ZOOM / 2 ;
+  column_3.position.x = TILE_SIZE * ZOOM / 2;
   column_3.castShadow = true;
   column_3.receiveShadow = true;
   building.add(column_3);
@@ -528,11 +527,121 @@ export function ConstructionBuilding() {
   );
   column_4.position.z = TILE_SIZE * ZOOM;
   column_4.position.y = -TILE_SIZE * ZOOM / 2;
-  column_4.position.x = TILE_SIZE * ZOOM / 2 ;
+  column_4.position.x = TILE_SIZE * ZOOM / 2;
   column_4.castShadow = true;
   column_4.receiveShadow = true;
   building.add(column_4);
 
+  return building;
+}
+
+export function mailBuilding() {
+  const building = new THREE.Group();
+
+  const base = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      3 * TILE_SIZE * ZOOM,
+      2 * TILE_SIZE * ZOOM,
+      2 * TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0xA1ADA9, flatShading: true }),
+  );
+  base.position.z = TILE_SIZE * ZOOM;
+  base.position.y = -TILE_SIZE * ZOOM / 2;
+  base.castShadow = true;
+  base.receiveShadow = true;
+  building.add(base);
+
+  const door = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      2 * TILE_SIZE * ZOOM / 3,
+      3 * ZOOM,
+      TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0x683500, flatShading: true }),
+  );
+  door.position.z = TILE_SIZE * ZOOM / 2;
+  door.position.y = -3 / 2 * TILE_SIZE * ZOOM;
+  door.castShadow = true;
+  door.receiveShadow = true;
+  building.add(door);
+
+  const leftWindow = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      2 * TILE_SIZE * ZOOM / 3,
+      2 * ZOOM,
+      TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0x519AC3, flatShading: true }),
+  );
+  leftWindow.position.z = TILE_SIZE * ZOOM;
+  leftWindow.position.y = -3 / 2 * TILE_SIZE * ZOOM;
+  leftWindow.position.x = TILE_SIZE * ZOOM;
+  leftWindow.castShadow = true;
+  leftWindow.receiveShadow = true;
+  building.add(leftWindow);
+
+  const rigthWindow = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      2 * TILE_SIZE * ZOOM / 3,
+      3 * ZOOM,
+      TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0x519AC3, flatShading: true }),
+  );
+  rigthWindow.position.z = TILE_SIZE * ZOOM;
+  rigthWindow.position.y = -3 / 2 * TILE_SIZE * ZOOM;
+  rigthWindow.position.x = -TILE_SIZE * ZOOM;
+  rigthWindow.castShadow = true;
+  rigthWindow.receiveShadow = true;
+  building.add(rigthWindow);
+
+  const edgesEnvelopTop = new THREE.EdgesGeometry(
+    new THREE.CylinderGeometry(
+      TILE_SIZE * ZOOM * 2 / 3,
+      TILE_SIZE * ZOOM * 2 / 3,
+      5 * ZOOM,
+      3,
+    ),
+  );
+  const lineEnvelopTop = new THREE.LineSegments(
+    edgesEnvelopTop,
+    new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 20 }),
+  );
+  lineEnvelopTop.position.z = 8 / 3 * TILE_SIZE * ZOOM;
+  lineEnvelopTop.rotation.x = Math.PI;
+  lineEnvelopTop.position.y = -3 / 2 * TILE_SIZE * ZOOM;
+  building.add(lineEnvelopTop);
+
+  const envelopBottom = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      2 * TILE_SIZE * ZOOM,
+      4 * ZOOM,
+      TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0xFFFFFF, flatShading: true }),
+  );
+  envelopBottom.position.z = 5 / 2 * TILE_SIZE * ZOOM;
+  envelopBottom.position.y = -3 / 2 * TILE_SIZE * ZOOM;
+  envelopBottom.castShadow = true;
+  envelopBottom.receiveShadow = true;
+  building.add(envelopBottom);
+
+  const edgesEnvelopBottom = new THREE.EdgesGeometry(
+    new THREE.BoxBufferGeometry(
+      2 * TILE_SIZE * ZOOM,
+      4 * ZOOM,
+      TILE_SIZE * ZOOM,
+    ),
+  );
+
+  const lineEnvelopBottom = new THREE.LineSegments(
+    edgesEnvelopBottom,
+    new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 20 }),
+  );
+  lineEnvelopBottom.position.z = 5 / 2 * TILE_SIZE * ZOOM;
+  lineEnvelopBottom.position.y = -3 / 2 * TILE_SIZE * ZOOM;
+  building.add(lineEnvelopBottom);
 
   return building;
 }

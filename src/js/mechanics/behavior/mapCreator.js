@@ -30,6 +30,7 @@ import {
   ConstructionBuilding,
   LubtracBoard,
   LubtracContainner,
+  mailBuilding,
   TourBuilding,
 } from "../objects/building.js";
 import { Player } from "../objects/player/player.js";
@@ -59,6 +60,8 @@ function Tile(type, x_index, y_index) {
   this.y_index = y_index;
   this.type = type;
   this.occupiedPosition = false;
+  this.talk = '';
+  this.talkable = false;
   let object = null;
 
   switch (this.type) {
@@ -107,7 +110,7 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new ConstructionBuilding();
+      object = new mailBuilding();
       //object.rotation.z = -Math.PI / 2;
       this.mesh.add(object);
       this.occupiedPosition = true;
@@ -211,16 +214,60 @@ function Tile(type, x_index, y_index) {
       object = new Coin();
       this.mesh.add(object);
       break;
+    case TILETYPE.CONSTRUCTION:
+      this.mesh = new RoadTile();
+      object = new ConstructionBuilding();
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
     case TILETYPE.PLAYER_AG:
       this.mesh = new RoadTile();
       object = new talkableCharacter("cow");
       object.rotation.z = -Math.PI / 2;
       this.mesh.add(object);
+      this.talkable = true;
+      this.talk = 'Hello im a cow';
       this.occupiedPosition = true;
       break;
-    case TILETYPE.CONSTRUCTION:
+    case TILETYPE.PLAYER_LUBTRAC:
       this.mesh = new RoadTile();
-      object = new ConstructionBuilding();
+      object = new talkableCharacter("panda");
+      object.rotation.z = -Math.PI / 2;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = 'Hello im a panda';
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.PLAYER_BOSCH:
+      this.mesh = new RoadTile();
+      object = new talkableCharacter("bear");
+      object.rotation.z = -Math.PI / 2;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = 'Hello im a bear';
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.PLAYER_BUILDING:
+      this.mesh = new RoadTile();
+      object = new talkableCharacter("pork");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = 'Hello im a pork';
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.PLAYER_MAIL:
+      this.mesh = new RoadTile();
+      object = new talkableCharacter("sheep");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = 'Hello im a sheep';
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MAIL_BUILDING:
+      this.mesh = new GrassTile();
+      object = new mailBuilding();
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;

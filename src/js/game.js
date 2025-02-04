@@ -28,7 +28,7 @@ import { Player } from "./mechanics/objects/player/player.js";
 const counterDOM = document.getElementById("counter_points");
 //Game over dialog
 const endDOM = document.getElementById("end");
-const dialogDOM = document.getElementById("dialog")
+const dialogDOM = document.getElementById("dialog");
 
 const LANES = INTROMAP[0].length;
 const COLUMNS = INTROMAP.length;
@@ -244,16 +244,37 @@ globalThis.addEventListener("keydown", (event) => {
   }
 });
 
+const getTalkable = () => {
+  if (lanes[currentColumn][currentLane + 1].talkable) {
+    return lanes[currentColumn][currentLane + 1].talk;
+  }
+  if (lanes[currentColumn][currentLane - 1].talkable) {
+    return lanes[currentColumn][currentLane - 1].talk;
+  }
+  if (lanes[currentColumn + 1][currentLane].talkable) {
+    return lanes[currentColumn + 1][currentLane].talk;
+  }
+  if (lanes[currentColumn - 1][currentLane].talkable) {
+    return lanes[currentColumn - 1][currentLane].talk;
+  }
+  return false;
+};
+
 function talk() {
+  const talk = getTalkable();
   if (
-    lanes[currentColumn][currentLane + 1].type === TILETYPE.PLAYER_AG ||
-    lanes[currentColumn][currentLane - 1].type === TILETYPE.PLAYER_AG ||
-    lanes[currentColumn + 1][currentLane].type === TILETYPE.PLAYER_AG ||
-    lanes[currentColumn - 1][currentLane].type === TILETYPE.PLAYER_AG
+    talk !== false
   ) {
-    dialogDOM.style.visibility = "visible";
-  } else{
-    dialogDOM.style.visibility = "hidden";
+    if (dialogDOM.style.visibility === "visible") {
+      dialogDOM.style.visibility = "hidden";
+    } else {
+      dialogDOM.children[0].innerHTML = talk;
+      dialogDOM.style.visibility = "visible";
+    }
+  } else {
+    if (dialogDOM.style.visibility === "visible") {
+      dialogDOM.style.visibility = "hidden";
+    }
   }
 }
 
