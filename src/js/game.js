@@ -245,16 +245,18 @@ globalThis.addEventListener("keydown", (event) => {
 });
 
 const getTalkable = () => {
-  if (lanes[currentColumn][currentLane + 1].talkable) {
+  if (currentLane < LANES && lanes[currentColumn][currentLane + 1].talkable) {
     return lanes[currentColumn][currentLane + 1].talk;
   }
-  if (lanes[currentColumn][currentLane - 1].talkable) {
+  if (currentLane > 0 && lanes[currentColumn][currentLane - 1].talkable) {
     return lanes[currentColumn][currentLane - 1].talk;
   }
-  if (lanes[currentColumn + 1][currentLane].talkable) {
+  if (
+    currentColumn < COLUMNS && lanes[currentColumn + 1][currentLane].talkable
+  ) {
     return lanes[currentColumn + 1][currentLane].talk;
   }
-  if (lanes[currentColumn - 1][currentLane].talkable) {
+  if (currentColumn > 0 && lanes[currentColumn - 1][currentLane].talkable) {
     return lanes[currentColumn - 1][currentLane].talk;
   }
   return false;

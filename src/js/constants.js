@@ -14,7 +14,7 @@ export const BACKGROUND_COLOR = new THREE.Color().setHex(0x87ceeb);
 //Lights
 export const INITIAL_DIR_LIGHT_POSITION_X = -100;
 export const INITIAL_DIR_LIGHT_POSITION_Y = -100;
-export const INITIAL_DIR_LIGHT_SHADOW_BASE = 500;
+export const INITIAL_DIR_LIGHT_SHADOW_BASE = 2000;
 
 export const INITIAL_CAMERA_ROTATION_X = 50 * Math.PI / 180;
 export const INITIAL_CAMERA_ROTATION_Y = 20 * Math.PI / 180;

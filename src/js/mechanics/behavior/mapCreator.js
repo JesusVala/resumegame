@@ -34,7 +34,11 @@ import {
   TourBuilding,
 } from "../objects/building.js";
 import { Player } from "../objects/player/player.js";
-import { Coin, talkableCharacter } from "../objects/actionables.js";
+import {
+  Coin,
+  monoliteTechnologies,
+  talkableCharacter,
+} from "../objects/actionables.js";
 import { TEXT } from "../../assets/textCharacter.js";
 
 export function generateMap(scene) {
@@ -111,7 +115,7 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new mailBuilding();
+      object = new monoliteTechnologies("sql");
       //object.rotation.z = -Math.PI / 2;
       this.mesh.add(object);
       this.occupiedPosition = true;
@@ -279,6 +283,111 @@ function Tile(type, x_index, y_index) {
       this.mesh.add(object);
       this.talkable = true;
       this.talk = TEXT.NPC.TOUR_WELCOME;
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MONOLITE_JS:
+      this.mesh = new GrassTile();
+      object = new monoliteTechnologies("js");
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_JS:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = "lorem ipsum";
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MONOLITE_HTML:
+      this.mesh = new GrassTile();
+      object = new monoliteTechnologies("html");
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_HMTL:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = "lorem ipsum";
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MONOLITE_REACT:
+      this.mesh = new GrassTile();
+      object = new monoliteTechnologies("react");
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_REACT:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = "lorem ipsum";
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MONOLITE_SQL:
+      this.mesh = new GrassTile();
+      object = new monoliteTechnologies("sql");
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_SQL:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = "lorem ipsum";
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MONOLITE_GIT:
+      this.mesh = new GrassTile();
+      object = new monoliteTechnologies("git");
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_GIT:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = "lorem ipsum";
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MONOLITE_AZURE:
+      this.mesh = new GrassTile();
+      object = new monoliteTechnologies("azure");
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_AZURE:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = "lorem ipsum";
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.MONOLITE_ITESO:
+      this.mesh = new GrassTile();
+      object = new monoliteTechnologies("iteso");
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_ITESO:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = "lorem ipsum";
       this.occupiedPosition = true;
       break;
     default:

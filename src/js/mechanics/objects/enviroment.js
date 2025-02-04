@@ -79,14 +79,16 @@ export function GrassTile() {
       new THREE.BoxBufferGeometry(
         TILE_SIZE * ZOOM,
         POSITION_WIDTH * ZOOM,
-        //3 * ZOOM,
+        6 * ZOOM,
       ),
       new THREE.MeshPhongMaterial({ color }),
       //new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(IMAGES.TEXTURES.DUMMY.IMAGE_600_400) } ),
     );
 
   const tile = createSection(0xbaf455);
+  tile.castShadow = true;
   tile.receiveShadow = true;
+  tile.position.z = -3 * ZOOM;
   grass.add(tile);
 
   grass.position.z = 1.5 * ZOOM;
@@ -101,13 +103,14 @@ export function RoadTile() {
       new THREE.BoxBufferGeometry(
         TILE_SIZE * ZOOM,
         POSITION_WIDTH * ZOOM,
-        //3 * ZOOM,
+        3 * ZOOM,
       ),
       new THREE.MeshPhongMaterial({ color }),
     );
 
   const tile = createSection(0x454A59);
   tile.receiveShadow = true;
+  tile.position.z = -3 * ZOOM;
   grass.add(tile);
 
   grass.position.z = 1.5 * ZOOM;
@@ -122,13 +125,14 @@ export function WaterTile() {
       new THREE.BoxBufferGeometry(
         TILE_SIZE * ZOOM,
         POSITION_WIDTH * ZOOM,
-        //3 * ZOOM,
+        3 * ZOOM,
       ),
       new THREE.MeshPhongMaterial({ color }),
     );
 
   const tile = createSection(0x0080FF);
   tile.receiveShadow = true;
+  tile.position.z = -3 * ZOOM;
   grass.add(tile);
 
   grass.position.z = 1.5 * ZOOM;

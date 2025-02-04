@@ -73,7 +73,7 @@ export function frogPlayer() {
   player.add(rightHorn);
 
   const leftArm = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 2 * ZOOM),
+    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 4 * ZOOM),
     new THREE.MeshLambertMaterial({
       color: COLORS.FROG.GREEN,
       flatShading: true,
@@ -87,7 +87,7 @@ export function frogPlayer() {
   player.add(leftArm);
 
   const rightArm = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 2 * ZOOM),
+    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 4 * ZOOM),
     new THREE.MeshLambertMaterial({
       color: COLORS.FROG.GREEN,
       flatShading: true,
@@ -101,7 +101,7 @@ export function frogPlayer() {
   player.add(rightArm);
 
   const leftLeg = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 2 * ZOOM),
+    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 4 * ZOOM),
     new THREE.MeshLambertMaterial({
       color: COLORS.FROG.GREEN,
       flatShading: true,
@@ -115,7 +115,7 @@ export function frogPlayer() {
   player.add(leftLeg);
 
   const rightLeg = new THREE.Mesh(
-    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 2 * ZOOM),
+    new THREE.BoxBufferGeometry(2 * ZOOM, 4 * ZOOM, 4 * ZOOM),
     new THREE.MeshLambertMaterial({
       color: COLORS.FROG.GREEN,
       flatShading: true,

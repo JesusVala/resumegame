@@ -1,4 +1,5 @@
-import { PLAYER_SIZE, ZOOM } from "../../constants.js";
+import { IMAGES } from "../../assets/images.js";
+import { PLAYER_SIZE, TILE_SIZE, ZOOM } from "../../constants.js";
 import { Player } from "../objects/player/player.js";
 import { BoschBoard } from "./building.js";
 
@@ -106,4 +107,71 @@ export function talkableCharacter(type) {
   dialog.position.z = PLAYER_SIZE * ZOOM;
 
   return talkable;
+}
+
+function monolite(image) {
+  const monolite = new THREE.Group();
+
+  const base = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      TILE_SIZE * ZOOM,
+      20 * ZOOM,
+      2 * TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0xA1ADA9, flatShading: true }),
+  );
+  base.position.z = TILE_SIZE * ZOOM;
+  //base.position.y = -TILE_SIZE * ZOOM / 2;
+  base.castShadow = true;
+  base.receiveShadow = true;
+  monolite.add(base);
+
+  const blackMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
+
+  const canvas = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      TILE_SIZE * ZOOM,
+      3 * ZOOM,
+      TILE_SIZE * ZOOM,
+    ),
+    [
+      blackMaterial,
+      blackMaterial,
+      blackMaterial,
+      new THREE.MeshBasicMaterial({
+        map: new THREE.TextureLoader().load(image),
+      }),
+      blackMaterial,
+      blackMaterial,
+    ],
+    //new THREE.MeshBasicMaterial({ color: 0xffffff, flatShading: true }),
+  );
+  canvas.position.z = TILE_SIZE * ZOOM;
+  canvas.position.y = -10 * ZOOM;
+  canvas.castShadow = true;
+  canvas.receiveShadow = true;
+  monolite.add(canvas);
+
+  return monolite;
+}
+
+export function monoliteTechnologies(playerModelName) {
+  switch (playerModelName) {
+    case "js":
+      return monolite(IMAGES.MONOLITES.JS);
+    case "html":
+      return monolite(IMAGES.MONOLITES.HTML5);
+    case "react":
+      return monolite(IMAGES.MONOLITES.REACT_NATIVE);
+    case "sql":
+      return monolite(IMAGES.MONOLITES.SQL);
+    case "git":
+      return monolite(IMAGES.MONOLITES.GIT);
+    case "azure":
+      return monolite(IMAGES.MONOLITES.AZURE);
+    case "iteso":
+      return monolite(IMAGES.MONOLITES.ITESO);
+    default:
+      return monolite(IMAGES.TEXTURES.DUMMY.IMAGE_600_400);
+  }
 }
