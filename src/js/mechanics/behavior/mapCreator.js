@@ -27,12 +27,13 @@ import {
   BoschDigital,
   BusSign,
   BusStop,
+  ConstructionBuilding,
   LubtracBoard,
   LubtracContainner,
   TourBuilding,
 } from "../objects/building.js";
 import { Player } from "../objects/player/player.js";
-import { Coin } from "../objects/actionables.js";
+import { Coin, talkableCharacter } from "../objects/actionables.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -49,7 +50,7 @@ export function generateMap(scene) {
       tileMap[x][y] = tile;
     }
   }
-  console.log(tileMap)
+  console.log(tileMap);
   return tileMap;
 }
 
@@ -106,8 +107,8 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.TEST:
       this.mesh = new GrassTile();
-      object = new Coin();
-      //object.rotation.z = Math.PI;
+      object = new ConstructionBuilding();
+      //object.rotation.z = -Math.PI / 2;
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;
@@ -200,10 +201,28 @@ function Tile(type, x_index, y_index) {
       this.mesh.add(object);
       this.occupiedPosition = true;
       break;
-    case TILETYPE.COIN:
+    case TILETYPE.COIN_GRASS:
       this.mesh = new GrassTile();
       object = new Coin();
       this.mesh.add(object);
+      break;
+    case TILETYPE.COIN_ROAD:
+      this.mesh = new RoadTile();
+      object = new Coin();
+      this.mesh.add(object);
+      break;
+    case TILETYPE.PLAYER_AG:
+      this.mesh = new RoadTile();
+      object = new talkableCharacter("cow");
+      object.rotation.z = -Math.PI / 2;
+      this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.CONSTRUCTION:
+      this.mesh = new RoadTile();
+      object = new ConstructionBuilding();
+      this.mesh.add(object);
+      this.occupiedPosition = true;
       break;
     default:
       this.mesh = new GrassTile();

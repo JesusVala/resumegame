@@ -435,7 +435,7 @@ export function AGBuilding() {
     ),
     new THREE.MeshPhongMaterial({ color: 0x000000, flatShading: true }),
   );
-  base.position.z = 30 * ZOOM;
+  base.position.z = TILE_SIZE * ZOOM;
   base.position.x = TILE_SIZE * ZOOM / 2;
   base.castShadow = true;
   base.receiveShadow = true;
@@ -465,6 +465,73 @@ export function AGBuilding() {
   disk.castShadow = true;
   disk.receiveShadow = true;
   building.add(disk);
+
+
+  return building;
+}
+
+export function ConstructionBuilding() {
+  const building = new THREE.Group();
+
+  const column_1 = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      5 * ZOOM,
+      5 * ZOOM,
+      2 * TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0x683500, flatShading: true }),
+  );
+  column_1.position.z = TILE_SIZE * ZOOM;
+  column_1.position.x = -TILE_SIZE * ZOOM / 2;
+  column_1.position.y = -TILE_SIZE * ZOOM / 2;
+  column_1.castShadow = true;
+  column_1.receiveShadow = true;
+  building.add(column_1);
+
+  const column_2 = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      5 * ZOOM,
+      5 * ZOOM,
+      2 * TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0x683500, flatShading: true }),
+  );
+  column_2.position.z = TILE_SIZE * ZOOM;
+  column_2.position.y = TILE_SIZE * ZOOM / 2;
+  column_2.position.x = -TILE_SIZE * ZOOM / 2 ;
+  column_2.castShadow = true;
+  column_2.receiveShadow = true;
+  building.add(column_2);
+
+  const column_3 = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      5 * ZOOM,
+      5 * ZOOM,
+      2 * TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0x683500, flatShading: true }),
+  );
+  column_3.position.z = TILE_SIZE * ZOOM;
+  column_3.position.y = TILE_SIZE * ZOOM / 2;
+  column_3.position.x = TILE_SIZE * ZOOM / 2 ;
+  column_3.castShadow = true;
+  column_3.receiveShadow = true;
+  building.add(column_3);
+
+  const column_4 = new THREE.Mesh(
+    new THREE.BoxBufferGeometry(
+      5 * ZOOM,
+      5 * ZOOM,
+      2 * TILE_SIZE * ZOOM,
+    ),
+    new THREE.MeshPhongMaterial({ color: 0x683500, flatShading: true }),
+  );
+  column_4.position.z = TILE_SIZE * ZOOM;
+  column_4.position.y = -TILE_SIZE * ZOOM / 2;
+  column_4.position.x = TILE_SIZE * ZOOM / 2 ;
+  column_4.castShadow = true;
+  column_4.receiveShadow = true;
+  building.add(column_4);
 
 
   return building;

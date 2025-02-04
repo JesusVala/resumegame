@@ -4,42 +4,57 @@ cssFile: "game.css"
 jsFile: "game.js"
 ---
 
-<div id="counter">0</div>
+<div id="counter">
+    <div id="counter_points">0</div>
+    <div>/20</div>
+</div>
 
 <div id="controlls">
-    <div>
+    <div id='directions'>
         <button id="forward">
             <svg width="30" height="30" viewBox="0 0 10 10">
                 <g transform="rotate(0, 5,5)">
-                    <path d="M5,4 L7,6 L3,6 L5,4" />
+                    <path d="M5,4 L7,6 L3,6 L5,4"/>
                 </g>
             </svg>
         </button>
         <button id="left">
             <svg width="30" height="30" viewBox="0 0 10 10">
                 <g transform="rotate(-90, 5,5)">
-                    <path d="M5,4 L7,6 L3,6 L5,4" />
+                    <path d="M5,4 L7,6 L3,6 L5,4"/>
                 </g>
             </svg>
         </button>
         <button id="backward">
             <svg width="30" height="30" viewBox="0 0 10 10">
                 <g transform="rotate(180, 5,5)">
-                    <path d="M5,4 L7,6 L3,6 L5,4" />
+                    <path d="M5,4 L7,6 L3,6 L5,4"/>
                 </g>
             </svg>
         </button>
         <button id="right">
             <svg width="30" height="30" viewBox="0 0 10 10">
                 <g transform="rotate(90, 5,5)">
-                    <path d="M5,4 L7,6 L3,6 L5,4" />
+                    <path d="M5,4 L7,6 L3,6 L5,4"/>
                 </g>
             </svg>
         </button>
     </div>
+    <div id="actions">
+        <button id="action_q">
+            <svg width="30" height="30" viewBox="0 0 10 10">
+                <<text y="8" x="2" font-size="5px" >Q</text>>
+            </svg>
+        </button>
+    </div>
 </div>
+<div id="dialog">
+    <button>
+        lorem ipsum
+    </button>
+</div>
+
 
 <div id="end">
     <button id="retry">Retry</button>
 </div>
-

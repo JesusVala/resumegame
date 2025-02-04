@@ -25,9 +25,10 @@ import { INTROMAP, TILETYPE } from "./mechanics/maps/intro_map.js";
 import { Player } from "./mechanics/objects/player/player.js";
 
 //Counter of points to make
-const counterDOM = document.getElementById("counter");
+const counterDOM = document.getElementById("counter_points");
 //Game over dialog
 const endDOM = document.getElementById("end");
+const dialogDOM = document.getElementById("dialog")
 
 const LANES = INTROMAP[0].length;
 const COLUMNS = INTROMAP.length;
@@ -159,7 +160,8 @@ function move(direction) {
   if (direction === "forward") {
     if (finalPositions.lane === LANES - 1) return;
     if (
-      lanes[finalPositions.column][finalPositions.lane + 1].occupiedPosition === true
+      lanes[finalPositions.column][finalPositions.lane + 1].occupiedPosition ===
+        true
       //lanes[finalPositions.lane + 1].type === "forest"
       //lanes[finalPositions.lane + 1].occupiedPositions.has(finalPositions.column,)
     ) return;
@@ -168,7 +170,8 @@ function move(direction) {
   } else if (direction === "backward") {
     if (finalPositions.lane === 0) return;
     if (
-      lanes[finalPositions.column][finalPositions.lane - 1].occupiedPosition === true
+      lanes[finalPositions.column][finalPositions.lane - 1].occupiedPosition ===
+        true
       //lanes[finalPositions.lane - 1].type === "forest"
       //lanes[finalPositions.lane - 1].occupiedPositions.has(finalPositions.column,)
     ) return;
@@ -176,7 +179,8 @@ function move(direction) {
   } else if (direction === "left") {
     if (finalPositions.column === 0) return;
     if (
-      lanes[finalPositions.column - 1][finalPositions.lane].occupiedPosition === true
+      lanes[finalPositions.column - 1][finalPositions.lane].occupiedPosition ===
+        true
       //lanes[finalPositions.lane].type === "forest"
       //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column - 1,)
     ) return;
@@ -184,7 +188,8 @@ function move(direction) {
   } else if (direction === "right") {
     if (finalPositions.column === COLUMNS - 1) return;
     if (
-      lanes[finalPositions.column + 1][finalPositions.lane].occupiedPosition === true
+      lanes[finalPositions.column + 1][finalPositions.lane].occupiedPosition ===
+        true
       //lanes[finalPositions.lane].type === "forest"
       //lanes[finalPositions.lane].occupiedPositions.has(finalPositions.column + 1,)
     ) return;
@@ -200,6 +205,10 @@ document.querySelector("#retry").addEventListener("click", () => {
   endDOM.style.visibility = "hidden";
 });
 
+document.querySelector("#dialog").addEventListener("click", () => {
+  dialogDOM.style.visibility = "hidden";
+});
+
 // Key map of buttons
 document.getElementById("forward").addEventListener(
   "click",
@@ -211,6 +220,10 @@ document.getElementById("backward").addEventListener(
 );
 document.getElementById("left").addEventListener("click", () => move("left"));
 document.getElementById("right").addEventListener("click", () => move("right"));
+document.getElementById("action_q").addEventListener(
+  "click",
+  () => talk(),
+);
 
 // Key map arrows
 globalThis.addEventListener("keydown", (event) => {
@@ -226,8 +239,23 @@ globalThis.addEventListener("keydown", (event) => {
   } else if (event.keyCode == "39") {
     // right arrow
     move("right");
+  } else if ("action") {
+    talk();
   }
 });
+
+function talk() {
+  if (
+    lanes[currentColumn][currentLane + 1].type === TILETYPE.PLAYER_AG ||
+    lanes[currentColumn][currentLane - 1].type === TILETYPE.PLAYER_AG ||
+    lanes[currentColumn + 1][currentLane].type === TILETYPE.PLAYER_AG ||
+    lanes[currentColumn - 1][currentLane].type === TILETYPE.PLAYER_AG
+  ) {
+    dialogDOM.style.visibility = "visible";
+  } else{
+    dialogDOM.style.visibility = "hidden";
+  }
+}
 
 function animate(timestamp) {
   requestAnimationFrame(animate);
@@ -236,22 +264,22 @@ function animate(timestamp) {
   const delta = timestamp - previousTimestamp;
   previousTimestamp = timestamp;
 
-
   //Animation
 
-  
   lanes.forEach((lane) => {
     lane.forEach((element) => {
-      if(element.type === TILETYPE.COIN){
+      if (
+        element.type === TILETYPE.COIN_GRASS ||
+        element.type === TILETYPE.COIN_ROAD
+      ) {
         element.mesh.children.forEach((obj) => {
-          if(obj.name === 'coin'){
-            obj.rotation.z += (1/100) * delta;
+          if (obj.name === "coin") {
+            obj.rotation.z += (1 / 100) * delta;
           }
-        })
-        
+        });
       }
-    }); 
-  } );
+    });
+  });
   // Animate cars and trucks moving on the lane
   /*
   lanes.forEach((lane) => {
@@ -438,10 +466,15 @@ function animate(timestamp) {
   }
 
   // Hit test coin collector
-  if(lanes[currentColumn][currentLane].type === TILETYPE.COIN){
+  if (lanes[currentColumn][currentLane].type === TILETYPE.COIN_GRASS) {
     lanes[currentColumn][currentLane].mesh.children.pop();
-    console.log('aa')
     lanes[currentColumn][currentLane].type = TILETYPE.GRASS;
+    ++counterDOM.innerHTML;
+  }
+
+  if (lanes[currentColumn][currentLane].type === TILETYPE.COIN_ROAD) {
+    lanes[currentColumn][currentLane].mesh.children.pop();
+    lanes[currentColumn][currentLane].type = TILETYPE.ROAD;
     ++counterDOM.innerHTML;
   }
 
@@ -454,9 +487,9 @@ function animate(timestamp) {
             obj.rotation.z += (1/100) * delta;
           }
         })
-        
+
       }
-    }); 
+    });
   } );
    */
 
