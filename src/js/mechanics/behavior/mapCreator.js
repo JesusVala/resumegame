@@ -35,6 +35,7 @@ import {
 } from "../objects/building.js";
 import { Player } from "../objects/player/player.js";
 import { Coin, talkableCharacter } from "../objects/actionables.js";
+import { TEXT } from "../../assets/textCharacter.js";
 
 export function generateMap(scene) {
   const tileMap = new Array(INTROMAP.length);
@@ -60,7 +61,7 @@ function Tile(type, x_index, y_index) {
   this.y_index = y_index;
   this.type = type;
   this.occupiedPosition = false;
-  this.talk = '';
+  this.talk = "";
   this.talkable = false;
   let object = null;
 
@@ -226,7 +227,7 @@ function Tile(type, x_index, y_index) {
       object.rotation.z = -Math.PI / 2;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = 'Hello im a cow';
+      this.talk = TEXT.NPC.AG;
       this.occupiedPosition = true;
       break;
     case TILETYPE.PLAYER_LUBTRAC:
@@ -235,7 +236,7 @@ function Tile(type, x_index, y_index) {
       object.rotation.z = -Math.PI / 2;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = 'Hello im a panda';
+      this.talk = TEXT.NPC.LUBTRAC;
       this.occupiedPosition = true;
       break;
     case TILETYPE.PLAYER_BOSCH:
@@ -244,7 +245,7 @@ function Tile(type, x_index, y_index) {
       object.rotation.z = -Math.PI / 2;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = 'Hello im a bear';
+      this.talk = TEXT.NPC.BOSCH;
       this.occupiedPosition = true;
       break;
     case TILETYPE.PLAYER_BUILDING:
@@ -253,7 +254,7 @@ function Tile(type, x_index, y_index) {
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = 'Hello im a pork';
+      this.talk = TEXT.NPC.CONSTRUCTOR;
       this.occupiedPosition = true;
       break;
     case TILETYPE.PLAYER_MAIL:
@@ -262,13 +263,22 @@ function Tile(type, x_index, y_index) {
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = 'Hello im a sheep';
+      this.talk = TEXT.NPC.MAIL;
       this.occupiedPosition = true;
       break;
     case TILETYPE.MAIL_BUILDING:
       this.mesh = new GrassTile();
       object = new mailBuilding();
       this.mesh.add(object);
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.PLAYER_TOUR:
+      this.mesh = new RoadTile();
+      object = new talkableCharacter("sheep_pink");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = TEXT.NPC.TOUR_WELCOME;
       this.occupiedPosition = true;
       break;
     default:
