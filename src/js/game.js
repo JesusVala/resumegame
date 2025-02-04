@@ -4,6 +4,7 @@
  *  Makes a scene to work with the game
  */
 
+import { TEXT } from "./assets/textCharacter.js";
 import {
   BACKGROUND_COLOR,
   BOARD_WIDTH,
@@ -26,9 +27,11 @@ import { Player } from "./mechanics/objects/player/player.js";
 
 //Counter of points to make
 const counterDOM = document.getElementById("counter_points");
+let winner = true;
 //Game over dialog
 const endDOM = document.getElementById("end");
 const dialogDOM = document.getElementById("dialog");
+const actionQDOM = document.getElementById("action_q");
 
 const LANES = INTROMAP[0].length;
 const COLUMNS = INTROMAP.length;
@@ -288,7 +291,7 @@ function animate(timestamp) {
   previousTimestamp = timestamp;
 
   //Animation
-
+  //Animate coin spin
   lanes.forEach((lane) => {
     lane.forEach((element) => {
       if (
@@ -303,29 +306,6 @@ function animate(timestamp) {
       }
     });
   });
-  // Animate cars and trucks moving on the lane
-  /*
-  lanes.forEach((lane) => {
-    if (lane.type === "car" || lane.type === "truck") {
-      const aBitBeforeTheBeginingOfLane = -BOARD_WIDTH * ZOOM / 2 -
-        POSITION_WIDTH * 2 * ZOOM;
-      const aBitAfterTheEndOFLane = BOARD_WIDTH * ZOOM / 2 +
-        POSITION_WIDTH * 2 * ZOOM;
-      lane.vechicles.forEach((vechicle) => {
-        if (lane.direction) {
-          vechicle.position.x =
-            vechicle.position.x < aBitBeforeTheBeginingOfLane
-              ? aBitAfterTheEndOFLane
-              : vechicle.position.x -= lane.speed / 16 * delta;
-        } else {
-          vechicle.position.x = vechicle.position.x > aBitAfterTheEndOFLane
-            ? aBitBeforeTheBeginingOfLane
-            : vechicle.position.x += lane.speed / 16 * delta;
-        }
-      });
-    }
-  });
-  */
 
   if (startMoving) {
     stepStartTimestamp = timestamp;
@@ -501,38 +481,26 @@ function animate(timestamp) {
     ++counterDOM.innerHTML;
   }
 
-  /*
-   lanes.forEach((lane) => {
-    lane.forEach((element) => {
-      if(element.type === TILETYPE.COIN){
-        element.mesh.children.forEach((obj) => {
-          if(obj.name === 'coin'){
-            obj.rotation.z += (1/100) * delta;
-          }
-        })
-
-      }
-    });
-  } );
-   */
-
-  // Hit test
-  /*
+  //Action color change when action is available
   if (
-    lanes[currentLane].type === "car" || lanes[currentLane].type === "truck"
+    (currentLane < LANES && lanes[currentColumn][currentLane + 1].talkable) ||
+    (currentLane > 0 && lanes[currentColumn][currentLane - 1].talkable) ||
+    (currentColumn < COLUMNS &&
+      lanes[currentColumn + 1][currentLane].talkable) ||
+    (currentColumn > 0 && lanes[currentColumn - 1][currentLane].talkable)
   ) {
-    const playerMinX = player.position.x - PLAYER_SIZE * ZOOM / 2;
-    const playerMaxX = player.position.x + PLAYER_SIZE * ZOOM / 2;
-    const vechicleLength = { car: 60, truck: 105 }[lanes[currentLane].type];
-    lanes[currentLane].vechicles.forEach((vechicle) => {
-      const carMinX = vechicle.position.x - vechicleLength * ZOOM / 2;
-      const carMaxX = vechicle.position.x + vechicleLength * ZOOM / 2;
-      if (playerMaxX > carMinX && playerMinX < carMaxX) {
-        endDOM.style.visibility = "visible";
-      }
-    });
+    actionQDOM.style.backgroundColor = "orange";
+  } else {
+    actionQDOM.style.backgroundColor = "white";
   }
-    */
+
+  //Win anouncement
+  if (winner && counterDOM.innerHTML == 20) {
+    winner = false;
+    dialogDOM.children[0].innerHTML = TEXT.WINNER;
+    dialogDOM.style.visibility = "visible";
+  }
+
   renderer.render(scene, camera);
 }
 

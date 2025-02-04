@@ -293,11 +293,11 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.NPC_JS:
       this.mesh = new GrassTile();
-      object = new talkableCharacter("sheep_pink");
+      object = new talkableCharacter("bear");
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = "lorem ipsum";
+      this.talk = TEXT.NPC.JS;
       this.occupiedPosition = true;
       break;
     case TILETYPE.MONOLITE_HTML:
@@ -308,11 +308,11 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.NPC_HMTL:
       this.mesh = new GrassTile();
-      object = new talkableCharacter("sheep_pink");
+      object = new talkableCharacter("cow");
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = "lorem ipsum";
+      this.talk = TEXT.NPC.HTML;
       this.occupiedPosition = true;
       break;
     case TILETYPE.MONOLITE_REACT:
@@ -323,11 +323,11 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.NPC_REACT:
       this.mesh = new GrassTile();
-      object = new talkableCharacter("sheep_pink");
+      object = new talkableCharacter("sheep_black");
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = "lorem ipsum";
+      this.talk = TEXT.NPC.REACT;
       this.occupiedPosition = true;
       break;
     case TILETYPE.MONOLITE_SQL:
@@ -338,11 +338,11 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.NPC_SQL:
       this.mesh = new GrassTile();
-      object = new talkableCharacter("sheep_pink");
+      object = new talkableCharacter("panda");
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = "lorem ipsum";
+      this.talk = TEXT.NPC.SQL;
       this.occupiedPosition = true;
       break;
     case TILETYPE.MONOLITE_GIT:
@@ -353,11 +353,11 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.NPC_GIT:
       this.mesh = new GrassTile();
-      object = new talkableCharacter("sheep_pink");
+      object = new talkableCharacter("sheep");
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = "lorem ipsum";
+      this.talk = TEXT.NPC.GIT;
       this.occupiedPosition = true;
       break;
     case TILETYPE.MONOLITE_AZURE:
@@ -372,7 +372,7 @@ function Tile(type, x_index, y_index) {
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = "lorem ipsum";
+      this.talk = TEXT.NPC.AZURE;
       this.occupiedPosition = true;
       break;
     case TILETYPE.MONOLITE_ITESO:
@@ -383,11 +383,38 @@ function Tile(type, x_index, y_index) {
       break;
     case TILETYPE.NPC_ITESO:
       this.mesh = new GrassTile();
-      object = new talkableCharacter("sheep_pink");
+      object = new talkableCharacter("sheep");
       object.rotation.z = Math.PI;
       this.mesh.add(object);
       this.talkable = true;
-      this.talk = "lorem ipsum";
+      this.talk = TEXT.NPC.ITESO;
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_LAB:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("pork");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = TEXT.NPC.NPM_LAB;
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_FISH_1:
+      this.mesh = new WaterTile();
+      object = new talkableCharacter("fish");
+      object.rotation.z = Math.PI / 2;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = TEXT.NPC.FISH_1;
+      this.occupiedPosition = true;
+      break;
+    case TILETYPE.NPC_WORKER:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("pork");
+      object.rotation.z = -Math.PI / 2;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = TEXT.NPC.WORKER;
       this.occupiedPosition = true;
       break;
     default:
