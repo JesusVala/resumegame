@@ -122,6 +122,12 @@ const initaliseValues = () => {
 
   dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X;
   dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y;
+
+
+  fetch('https://api.counterapi.dev/v1/JesusValadez/main/up')
+  .then(response => response.json())
+  .then(data => console.log(data));
+
 };
 
 initaliseValues();
