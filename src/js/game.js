@@ -248,14 +248,17 @@ globalThis.addEventListener("keydown", (event) => {
 });
 
 const getTalkable = () => {
-  if (currentLane < LANES && lanes[currentColumn][currentLane + 1].talkable) {
+  if (
+    currentLane < (LANES - 1) && lanes[currentColumn][currentLane + 1].talkable
+  ) {
     return lanes[currentColumn][currentLane + 1].talk;
   }
   if (currentLane > 0 && lanes[currentColumn][currentLane - 1].talkable) {
     return lanes[currentColumn][currentLane - 1].talk;
   }
   if (
-    currentColumn < COLUMNS && lanes[currentColumn + 1][currentLane].talkable
+    currentColumn < (COLUMNS - 1) &&
+    lanes[currentColumn + 1][currentLane].talkable
   ) {
     return lanes[currentColumn + 1][currentLane].talk;
   }
@@ -483,9 +486,10 @@ function animate(timestamp) {
 
   //Action color change when action is available
   if (
-    (currentLane < LANES && lanes[currentColumn][currentLane + 1].talkable) ||
+    (currentLane < (LANES - 1) &&
+      lanes[currentColumn][currentLane + 1].talkable) ||
     (currentLane > 0 && lanes[currentColumn][currentLane - 1].talkable) ||
-    (currentColumn < COLUMNS &&
+    (currentColumn < (COLUMNS - 1) &&
       lanes[currentColumn + 1][currentLane].talkable) ||
     (currentColumn > 0 && lanes[currentColumn - 1][currentLane].talkable)
   ) {
