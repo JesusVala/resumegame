@@ -33,7 +33,6 @@ import {
   mailBuilding,
   TourBuilding,
 } from "../objects/building.js";
-import { Player } from "../objects/player/player.js";
 import {
   Coin,
   monoliteTechnologies,

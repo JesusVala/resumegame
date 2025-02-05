@@ -1,7 +1,6 @@
 import { IMAGES } from "../../assets/images.js";
 import { PLAYER_SIZE, TILE_SIZE, ZOOM } from "../../constants.js";
 import { Player } from "../objects/player/player.js";
-import { BoschBoard } from "./building.js";
 
 export function Dialog() {
   const dialog = new THREE.Group();

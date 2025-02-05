@@ -1,7 +1,7 @@
 export const TEXT = {
   NPC: {
     TOUR_WELCOME:
-      "Welcome to Valadev City! Explore, play, and discover my world of games. Adventure awaits!",
+      "Welcome to Dev City! Explore, play, and discover my world of games. Adventure awaits!",
     AG:
       "This is where it all began! At AgilGob, I spent six months as a Junior Full Stack Developer, sharpening my skills and diving into real-world projects. It was my first step into the world of development, and the start of an exciting journey!",
     LUBTRAC:
@@ -9,15 +9,15 @@ export const TEXT = {
     BOSCH:
       "Currently, I’m a Full Stack Developer at Bosch, collaborating with a global team to create innovative internal web-based solutions. It’s been an exciting journey working on cutting-edge projects with people from all over the world!",
     MAIL:
-      "Hey there! I’m the Mailman, and if you’ve got any questions or ideas, send a letter to Jesus Valadez! I’ll make sure it reaches the right hands. Don’t be shy—let’s connect!",
+      "Hey there! I’m the Mailman, and if you’ve got any questions or ideas, send a letter to Jesus Valadez! I’ll make sure it reaches the right hands. Don’t be shy let’s connect!",
     CONSTRUCTOR:
-      "Hello, I'm the Constructor, working hard on building the next chapter of this city—my future experience! Stay tuned, there's more to come as this project takes shape!",
+      "Hello, I'm the Constructor, working hard on building the next chapter of this city my future experience! Stay tuned, there's more to come as this project takes shape!",
     JS:
-      "With 5 years of JavaScript experience, I build dynamic, efficient, and seamless applications—powering this city with solid code!",
+      "With 5 years of JavaScript experience, I build dynamic, efficient, and seamless applications powering this city with solid code!",
     HTML:
-      "HTML? Of course! It’s the foundation of every web project. It’s not a plus—it’s just the default!",
+      "HTML? Of course! It’s the foundation of every web project. It’s not a plus. It’s just the default!",
     REACT:
-      "With 3 years of React experience, I’ve built dynamic and interactive applications. But React isn’t the only tool in my belt—I work with multiple frameworks to get the job done!",
+      "With 3 years of React experience, I’ve built dynamic and interactive applications. But React isn’t the only tool in my belt. I work with multiple frameworks to get the job done!",
     SQL:
       "SQL? No problem! I’ve worked with relational databases to structure data efficiently, but I’m also comfortable with NoSQL solutions when flexibility is needed.",
     GIT:
