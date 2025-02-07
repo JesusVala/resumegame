@@ -1,7 +1,7 @@
 export const TEXT = {
   NPC: {
     TOUR_WELCOME:
-      "Welcome to Dev City! Explore, play, and discover my world of games. Adventure awaits!",
+      "Welcome to Dev City! This is a personal portfolio to see Full Stack skills of Jesus Valadez.",
     AG:
       "This is where it all began! At AgilGob, I spent six months as a Junior Full Stack Developer, sharpening my skills and diving into real-world projects. It was my first step into the world of development, and the start of an exciting journey!",
     LUBTRAC:
@@ -35,7 +35,7 @@ export const TEXT = {
     WINNER_BEFORE:
       "Welcome to the city! There are 20 coins hidden around. Try to find them all! Once you have all 20, come back and talk to me.",
     WINNER_AFTER:
-      "Wow! You found all 20 coins! Great job! I’d love to hear from you—why not send a message to Jesus Valadez? Let him know you made it! You can reach him at jesusvaladezf@outlook.com.",
+      "Wow! You found all 20 coins! Great job! I’d love to hear from you why not send a message to Jesus Valadez? Let him know you made it! You can reach him at jesusvaladezf@outlook.com.",
   },
   WINNER:
     "Congratulations! You’ve won... but, uh, nothing really happens. It’s all part of the journey, right?",
