@@ -5,6 +5,7 @@
  */
 
 import { TEXT } from "./assets/textCharacter.js";
+import { DEV } from "./constants.js";
 import {
   BACKGROUND_COLOR,
   BOARD_WIDTH,
@@ -123,9 +124,11 @@ const initaliseValues = () => {
   dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X;
   dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y;
 
+  if (DEV) {
   fetch("https://api.counterapi.dev/v1/JesusValadez/main/up")
     .then((response) => response.json())
     .then((data) => console.log(data));
+  }
 };
 
 initaliseValues();
@@ -508,9 +511,11 @@ function animate(timestamp) {
     dialogDOM.children[0].innerHTML = TEXT.WINNER;
     dialogDOM.style.visibility = "visible";
 
-    fetch("https://api.counterapi.dev/v1/JesusValadez/win/up")
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    if (DEV) {
+      fetch("https://api.counterapi.dev/v1/JesusValadez/win/up")
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    }
 
     lanes.forEach((lane) => {
       lane.forEach((element) => {
