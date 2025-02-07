@@ -123,11 +123,9 @@ const initaliseValues = () => {
   dirLight.position.x = INITIAL.DIR_LIGHT.POSITION.X;
   dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y;
 
-
-  fetch('https://api.counterapi.dev/v1/JesusValadez/main/up')
-  .then(response => response.json())
-  .then(data => console.log(data));
-
+  fetch("https://api.counterapi.dev/v1/JesusValadez/main/up")
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 };
 
 initaliseValues();
@@ -509,6 +507,20 @@ function animate(timestamp) {
     winner = false;
     dialogDOM.children[0].innerHTML = TEXT.WINNER;
     dialogDOM.style.visibility = "visible";
+
+    fetch("https://api.counterapi.dev/v1/JesusValadez/win/up")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+
+    lanes.forEach((lane) => {
+      lane.forEach((element) => {
+        if (
+          element.type === TILETYPE.NPC_WINNER
+        ) {
+          element.talk = TEXT.NPC.WINNER_AFTER;
+        }
+      });
+    });
   }
 
   renderer.render(scene, camera);

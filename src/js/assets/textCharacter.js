@@ -32,6 +32,10 @@ export const TEXT = {
       "I’ve been here for a while, but I still can’t figure out why this island is floating in the air. Some say it’s magic, others think it’s science... but no one really knows.",
     WORKER:
       "I’m still learning the ins and outs of construction around here! Every new building teaches me something new. It’s a process, but I’m excited to keep improving!",
+    WINNER_BEFORE:
+      "Welcome to the city! There are 20 coins hidden around. Try to find them all! Once you have all 20, come back and talk to me.",
+    WINNER_AFTER:
+      "Wow! You found all 20 coins! Great job! I’d love to hear from you—why not send a message to Jesus Valadez? Let him know you made it! You can reach him at jesusvaladezf@outlook.com.",
   },
   WINNER:
     "Congratulations! You’ve won... but, uh, nothing really happens. It’s all part of the journey, right?",

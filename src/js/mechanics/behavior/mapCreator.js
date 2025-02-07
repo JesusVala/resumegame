@@ -416,6 +416,15 @@ function Tile(type, x_index, y_index) {
       this.talk = TEXT.NPC.WORKER;
       this.occupiedPosition = true;
       break;
+    case TILETYPE.NPC_WINNER:
+      this.mesh = new GrassTile();
+      object = new talkableCharacter("cow");
+      object.rotation.z = Math.PI;
+      this.mesh.add(object);
+      this.talkable = true;
+      this.talk = TEXT.NPC.WINNER_BEFORE;
+      this.occupiedPosition = true;
+      break;
     default:
       this.mesh = new GrassTile();
       break;
