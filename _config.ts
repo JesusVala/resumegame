@@ -17,6 +17,7 @@ const site = lume(
   },
 );
 
+site.copy("images");
 site.use(nunjucks(/* Options */));
 site.use(code_highlight(/* Options */));
 site.use(sass(/* Options */));

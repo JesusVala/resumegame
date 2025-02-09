@@ -1,5 +1,5 @@
 // DEV helper guides
-export const DEV = false;
+export const DEV = true;
 
 // Core time of game
 export const STEP_TIME = 200; // Miliseconds it takes for the player to take a step forward, backward, left or right

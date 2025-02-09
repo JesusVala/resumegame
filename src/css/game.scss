@@ -84,3 +84,69 @@ button {
   font-family: inherit;
   font-size: 1rem;
 }
+
+
+/* Animation Dialog */
+
+/* This is for the animation in */
+
+.dialog {
+            
+  background: transparent;
+  border-color: transparent;
+  max-width: 400px;
+  padding: 40px;
+  filter: drop-shadow(5px 5px 0 rgba(52, 70, 69, 0.567));
+  color: white;
+  font-weight: bold;
+
+  /* This here is what actually make the tiling happen */
+  border-image: url("../images/background-sprite.png");
+  border-image-slice: 34 fill;
+  border-image-width: 40px;
+  border-image-repeat: repeat;
+}
+
+.dialog p#text_dialog {
+  font-weight: normal;
+  font-size: medium;
+}
+
+.dialog::backdrop {
+  background: rgba(52, 70, 69, 0.567);
+}
+
+.dialog[open] {
+  animation: show 0.5s ease normal;
+}
+
+.dialog:not([open]) {
+  animation: show 0.5s ease normal;
+  animation-direction: reverse;
+}
+
+.dialog.modal-backdrop {
+  animation: show 0.5s ease normal;
+  animation-direction: reverse;
+}
+
+@keyframes show {
+  from {
+      transform: translateY(110%);
+  }
+  to {
+      transform: translateY(0%);
+  }
+}
+
+/* Some basic button styling */
+.dialog button {
+  background-color: #2d4341;
+  outline: 3px solid black;
+  border-top: 2px solid rgba(85, 151, 148, 0.567);
+  line-height: 24px;
+  color: rgb(255, 222, 76);
+  cursor: pointer;
+  font-weight: bold;
+  border: transparent;   
+}

@@ -11,9 +11,6 @@ import {
   BOARD_WIDTH,
   DISTANCE,
   INITIAL,
-  PLAYER_INITIAL_X,
-  PLAYER_INITIAL_Y,
-  PLAYER_SIZE,
   POSITION_WIDTH,
   STEP_TIME,
   ZOOM,
@@ -31,7 +28,8 @@ const counterDOM = document.getElementById("counter_points");
 let winner = true;
 //Game over dialog
 const endDOM = document.getElementById("end");
-const dialogDOM = document.getElementById("dialog");
+const textDialogDOM = document.getElementById("txt_bubble");
+const textTalkDOM = document.getElementById("text_dialog");
 const actionQDOM = document.getElementById("action_q");
 
 const LANES = INTROMAP[0].length;
@@ -215,10 +213,6 @@ document.querySelector("#retry").addEventListener("click", () => {
   endDOM.style.visibility = "hidden";
 });
 
-document.querySelector("#dialog").addEventListener("click", () => {
-  dialogDOM.style.visibility = "hidden";
-});
-
 // Key map of buttons
 document.getElementById("forward").addEventListener(
   "click",
@@ -277,19 +271,12 @@ const getTalkable = () => {
 
 function talk() {
   const talk = getTalkable();
-  if (
-    talk !== false
-  ) {
-    if (dialogDOM.style.visibility === "visible") {
-      dialogDOM.style.visibility = "hidden";
-    } else {
-      dialogDOM.children[0].innerHTML = talk;
-      dialogDOM.style.visibility = "visible";
-    }
-  } else {
-    if (dialogDOM.style.visibility === "visible") {
-      dialogDOM.style.visibility = "hidden";
-    }
+
+  if(textDialogDOM.open){
+    textDialogDOM.close();
+  }else if(talk){
+    textTalkDOM.innerText = talk;
+    textDialogDOM.showModal();
   }
 }
 
@@ -508,8 +495,8 @@ function animate(timestamp) {
   //Win anouncement
   if (winner && counterDOM.innerHTML == 20) {
     winner = false;
-    dialogDOM.children[0].innerHTML = TEXT.WINNER;
-    dialogDOM.style.visibility = "visible";
+    textTalkDOM.innerText = TEXT.WINNER;
+    textDialogDOM.showModal();
 
     if (DEV) {
       fetch("https://api.counterapi.dev/v1/JesusValadez/win/up")
