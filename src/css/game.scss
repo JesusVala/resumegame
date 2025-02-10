@@ -114,6 +114,7 @@ button {
   border-image-slice: 34 fill;
   border-image-width: 40px;
   border-image-repeat: repeat;
+  max-width: 95%;
 }
 
 .dialog p#text_dialog {
@@ -159,7 +160,6 @@ button {
   cursor: pointer;
   font-weight: bold;
   border: transparent;
-  max-width: 95%;
 }
 
 .splash {
