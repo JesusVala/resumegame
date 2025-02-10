@@ -500,7 +500,7 @@ function animate(timestamp) {
   }
 
   //Win anouncement
-  if (winner && counterDOM.innerHTML == 20) {
+  if (winner && counterDOM.innerHTML == 2) {
     winner = false;
     textTalkDOM.innerText = TEXT.WINNER;
     textDialogDOM.showModal();
