@@ -35,7 +35,7 @@ export const TEXT = {
     WINNER_BEFORE:
       "Welcome to the city! There are 20 coins hidden around. Try to find them all! Once you have all 20, come back and talk to me.",
     WINNER_AFTER:
-      "Wow! You found all 20 coins! Great job! I’d love to hear from you, send a message to Jesus Valadez? Let him know you made it! You can reach him at jesusvaladezf@outlook.com.",
+      "Wow! You found all 20 coins! Great job! I’d love to hear from you, send a message to Jesus Valadez? Let him know you made it! You can reach him at jesusvaladezf@ outlook.com",
   },
   WINNER:
     "Congratulations! You’ve won... but, uh, nothing really happens. It’s all part of the journey, right?",
