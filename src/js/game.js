@@ -283,7 +283,7 @@ function talk() {
     textDialogDOM.close();
   } else if (talk) {
     console.log(talk);
-    textTalkDOM.innerText = String(talk);
+    textTalkDOM.innerHTML = String(talk);
     textDialogDOM.showModal();
   }
 }
@@ -503,7 +503,7 @@ function animate(timestamp) {
   //Win anouncement
   if (winner && counterDOM.innerHTML == 2) {
     winner = false;
-    textTalkDOM.innerText = TEXT.WINNER;
+    textTalkDOM.innerHTML = TEXT.WINNER;
     textDialogDOM.showModal();
 
     if (DEV) {
