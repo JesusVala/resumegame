@@ -282,7 +282,8 @@ function talk() {
   if (textDialogDOM.open) {
     textDialogDOM.close();
   } else if (talk) {
-    textTalkDOM.innerText = talk;
+    console.log(talk);
+    textTalkDOM.innerText = String(talk);
     textDialogDOM.showModal();
   }
 }
