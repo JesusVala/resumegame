@@ -31,6 +31,32 @@ const endDOM = document.getElementById("end");
 const textDialogDOM = document.getElementById("txt_bubble");
 const textTalkDOM = document.getElementById("text_dialog");
 const actionQDOM = document.getElementById("action_q");
+const splashScreenDOM = document.querySelector(".splash");
+splashScreenDOM.addEventListener("click", () => {
+  splashScreenDOM.style.opacity = 0;
+  setTimeout(() => {
+    splashScreenDOM.classList.add("hide-splash");
+  }, 610);
+
+  // Key map arrows
+  globalThis.addEventListener("keydown", (event) => {
+    if (event.keyCode == "38") {
+      // up arrow
+      move("forward");
+    } else if (event.keyCode == "40") {
+      // down arrow
+      move("backward");
+    } else if (event.keyCode == "37") {
+      // left arrow
+      move("left");
+    } else if (event.keyCode == "39") {
+      // right arrow
+      move("right");
+    } else if ("action") {
+      talk();
+    }
+  });
+});
 
 const LANES = INTROMAP[0].length;
 const COLUMNS = INTROMAP.length;
@@ -123,9 +149,9 @@ const initaliseValues = () => {
   dirLight.position.y = INITIAL.DIR_LIGHT.POSITION.Y;
 
   if (DEV) {
-  fetch("https://api.counterapi.dev/v1/JesusValadez/main/up")
-    .then((response) => response.json())
-    .then((data) => console.log(data));
+    fetch("https://api.counterapi.dev/v1/JesusValadez/main/up")
+      .then((response) => response.json())
+      .then((data) => console.log(data));
   }
 };
 
@@ -229,25 +255,6 @@ document.getElementById("action_q").addEventListener(
   () => talk(),
 );
 
-// Key map arrows
-globalThis.addEventListener("keydown", (event) => {
-  if (event.keyCode == "38") {
-    // up arrow
-    move("forward");
-  } else if (event.keyCode == "40") {
-    // down arrow
-    move("backward");
-  } else if (event.keyCode == "37") {
-    // left arrow
-    move("left");
-  } else if (event.keyCode == "39") {
-    // right arrow
-    move("right");
-  } else if ("action") {
-    talk();
-  }
-});
-
 const getTalkable = () => {
   if (
     currentLane < (LANES - 1) && lanes[currentColumn][currentLane + 1].talkable
@@ -272,9 +279,9 @@ const getTalkable = () => {
 function talk() {
   const talk = getTalkable();
 
-  if(textDialogDOM.open){
+  if (textDialogDOM.open) {
     textDialogDOM.close();
-  }else if(talk){
+  } else if (talk) {
     textTalkDOM.innerText = talk;
     textDialogDOM.showModal();
   }

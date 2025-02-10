@@ -6,17 +6,20 @@ body {
   font-size: 2em;
   color: white;
 }
+
 button {
   outline: none;
   cursor: pointer;
   border: none;
-  box-shadow: 3px 5px 0px 0px rgba(0,0,0,0.75);
+  box-shadow: 3px 5px 0px 0px rgba(0, 0, 0, 0.75);
 }
+
 #counter {
   position: absolute;
   top: 20px;
   right: 20px;
 }
+
 #end {
   position: absolute;
   min-width: 100%;
@@ -26,12 +29,14 @@ button {
   justify-content: center;
   visibility: hidden;
 }
+
 #end button {
   background-color: red;
   padding: 20px 50px 20px 50px;
   font-family: inherit;
   font-size: inherit;
 }
+
 #controlls {
   position: absolute;
   min-width: 100%;
@@ -40,7 +45,8 @@ button {
   align-items: flex-end;
   justify-content: center;
 }
-#controlls div#directions{
+
+#controlls div#directions {
   display: grid;
   grid-template-columns: 50px 50px 50px;
   grid-template-rows: auto auto;
@@ -49,7 +55,8 @@ button {
   margin-bottom: 20px;
   margin-right: 20px;
 }
-#controlls div#actions{
+
+#controlls div#actions {
   font-family: 'Press Start 2P', cursive;
   display: grid;
   grid-template-columns: 50px;
@@ -59,11 +66,13 @@ button {
   margin-bottom: 20px;
   margin-right: 20px;
 }
+
 #controlls button {
   width: 100%;
   background-color: white;
   border: 1px solid lightgray;
 }
+
 #controlls button:first-of-type {
   grid-column: 1/-1;
 }
@@ -91,7 +100,7 @@ button {
 /* This is for the animation in */
 
 .dialog {
-            
+
   background: transparent;
   border-color: transparent;
   max-width: 400px;
@@ -132,10 +141,11 @@ button {
 
 @keyframes show {
   from {
-      transform: translateY(110%);
+    transform: translateY(110%);
   }
+
   to {
-      transform: translateY(0%);
+    transform: translateY(0%);
   }
 }
 
@@ -148,5 +158,85 @@ button {
   color: rgb(255, 222, 76);
   cursor: pointer;
   font-weight: bold;
-  border: transparent;   
+  border: transparent;
+}
+
+.splash {
+  cursor: pointer;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  height: 95%;
+  width: 95%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0);
+  transition: all ease-in-out 600ms;
+
+  border-image: url("../images/background-sprite.png");
+  border-image-slice: 34 fill;
+  border-image-width: 40px;
+  border-image-repeat: repeat;
+}
+
+.hide-splash {
+  transition: 0.5s;
+  display: none;
+}
+
+.splash-header {
+
+  height: 90%;
+  color: white;
+  font-size: 30px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  padding: 20px;
+
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "welcome"
+    "presentation"
+    "start-button";
+}
+
+.splash-header .welcome {
+  grid-area: welcome;
+  font-size: large;
+  margin-bottom: 10px;
+}
+
+.splash-header .presentation {
+  grid-area: presentation;
+  font-size: medium;
+  margin-bottom: 10px;
+}
+
+.splash-header .press-start {
+  grid-area: start-button;
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ffcc00;
+  color: #000;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .splash-screen {
+    width: 80%;
+  }
 }
