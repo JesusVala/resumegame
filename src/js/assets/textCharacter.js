@@ -13,7 +13,7 @@ export const TEXT = {
     CONSTRUCTOR:
       "Hello, I'm the Constructor, working hard on building the next chapter of this city my future experience! Stay tuned, there's more to come as this project takes shape!",
     JS:
-      "With 5 years of JavaScript experience, I build dynamic, efficient, and seamless applications powering this city with solid code!",
+      "With 4 years of JavaScript experience and a little bit of TypeScript, I build dynamic, efficient, and seamless applications powering this city with solid code!",
     HTML:
       "HTML? Of course! It’s the foundation of every web project. It’s not a plus. It’s just the default!",
     REACT:
