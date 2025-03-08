@@ -2,3 +2,5 @@ _site
 output
 output/*
 output/index.html
+_cache
+_cache/*
